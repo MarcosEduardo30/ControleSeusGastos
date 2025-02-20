@@ -7,7 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Despesas\EditarDespesa\" />
+    <Folder Include="Despesas\ExcluirDespesa\" />
+    <Folder Include="Despesas\BuscarDespesa\" />
+    <Folder Include="NovaPasta\" />
   </ItemGroup>
 
 </Project>
