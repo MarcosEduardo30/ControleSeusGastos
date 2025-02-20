@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Despesas.CriarDespesa;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ControleSeusGastos.API.Controllers
 {
@@ -6,13 +7,20 @@ namespace ControleSeusGastos.API.Controllers
     [Route("[Controller]")]
     public class Despesas : Controller
     {
+        private readonly CriarDespesa _criarDespesa;
+
+        public Despesas(CriarDespesa criarDespesa) { 
+            _criarDespesa = criarDespesa;
+        }
+
 
         [HttpPost()]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public IActionResult CriarDespesa()
+        public ActionResult<CriarDespesaOutput> CriarDespesa(CriarDespesaInput input)
         {
-            return Ok("");
+            var novadespesa = _criarDespesa.CriarNovaDespesa(input);
+            return Ok(novadespesa);
         }
     }
 }

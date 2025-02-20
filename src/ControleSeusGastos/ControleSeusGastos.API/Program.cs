@@ -1,3 +1,4 @@
+using Application;
 
 namespace ControleSeusGastos.API
 {
@@ -10,6 +11,8 @@ namespace ControleSeusGastos.API
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.addApplicationServices();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
