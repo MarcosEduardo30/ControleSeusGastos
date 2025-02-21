@@ -7,9 +7,9 @@ namespace ControleSeusGastos.API.Controllers
     [Route("[Controller]")]
     public class Despesas : Controller
     {
-        private readonly CriarDespesa _criarDespesa;
+        private readonly ICriarDespesa _criarDespesa;
 
-        public Despesas(CriarDespesa criarDespesa) { 
+        public Despesas(ICriarDespesa criarDespesa) { 
             _criarDespesa = criarDespesa;
         }
 
@@ -17,9 +17,9 @@ namespace ControleSeusGastos.API.Controllers
         [HttpPost()]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public ActionResult<CriarDespesaOutput> CriarDespesa(CriarDespesaInput input)
+        public async Task<ActionResult<CriarDespesaOutput>> CriarDespesa(CriarDespesaInput input)
         {
-            var novadespesa = _criarDespesa.CriarNovaDespesa(input);
+            var novadespesa = await _criarDespesa.CriarNovaDespesa(input);
             return Ok(novadespesa);
         }
     }

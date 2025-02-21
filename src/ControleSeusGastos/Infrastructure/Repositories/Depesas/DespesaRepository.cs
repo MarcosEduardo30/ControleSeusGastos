@@ -17,7 +17,7 @@ namespace Infrastructure.Repositories.Depesas
         }
         public async Task<int> criar(Despesa despesa)
         {
-            _dbContext.Add(despesa);
+            _dbContext.Despesas.Add(despesa);
             return await _dbContext.SaveChangesAsync();
         }
 
