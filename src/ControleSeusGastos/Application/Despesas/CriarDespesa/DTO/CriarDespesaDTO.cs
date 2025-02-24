@@ -1,4 +1,4 @@
-﻿namespace Application.Despesas.CriarDespesa
+﻿namespace Application.Despesas.CriarDespesa.DTO
 {
     public record CriarDespesaDTO
     {

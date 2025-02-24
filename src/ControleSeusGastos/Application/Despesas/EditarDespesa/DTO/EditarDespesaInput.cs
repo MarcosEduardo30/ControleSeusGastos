@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Despesas.EditarDespesa
+namespace Application.Despesas.EditarDespesa.DTO
 {
     public class EditarDespesaInput
     {

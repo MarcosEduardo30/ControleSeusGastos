@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Despesas.BuscarDespesa
+namespace Application.Despesas.BuscarDespesa.DTO
 {
     public record BuscarDespesaDTO
     {
