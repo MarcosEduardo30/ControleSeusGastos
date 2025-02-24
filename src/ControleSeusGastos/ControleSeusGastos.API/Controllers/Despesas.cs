@@ -1,4 +1,5 @@
 ﻿using Application.Despesas.CriarDespesa;
+using Application.Despesas.CriarDespesa.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleSeusGastos.API.Controllers

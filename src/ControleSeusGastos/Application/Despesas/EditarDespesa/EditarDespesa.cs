@@ -1,4 +1,5 @@
-﻿using Infrastructure.Repositories.Depesas;
+﻿using Application.Despesas.EditarDespesa.DTO;
+using Infrastructure.Repositories.Depesas;
 
 namespace Application.Despesas.EditarDespesa
 {
