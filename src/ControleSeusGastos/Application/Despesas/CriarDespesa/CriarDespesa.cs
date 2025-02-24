@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Despesas.CriarDespesa
 {
-    public class CriarDespesa : ICriarDespesa
+    internal class CriarDespesa : ICriarDespesa
     {
         private readonly IDespesaRepository _despesaRepository;
         public CriarDespesa(IDespesaRepository despesaRepository) { 

@@ -3,7 +3,7 @@ using Infrastructure.Repositories.Depesas;
 
 namespace Application.Despesas.BuscarDespesa
 {
-    public class BuscarDespesa : IBuscarDespesa
+    internal class BuscarDespesa : IBuscarDespesa
     {
         private readonly IDespesaRepository _despesaRepository;
         public BuscarDespesa(IDespesaRepository despesaRepository) {

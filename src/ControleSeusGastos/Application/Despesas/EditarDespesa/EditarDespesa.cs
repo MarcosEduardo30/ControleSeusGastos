@@ -3,7 +3,7 @@ using Infrastructure.Repositories.Depesas;
 
 namespace Application.Despesas.EditarDespesa
 {
-    public class EditarDespesa : IEditarDespesa
+    internal class EditarDespesa : IEditarDespesa
     {
         private readonly IDespesaRepository _despesaRepository;
 

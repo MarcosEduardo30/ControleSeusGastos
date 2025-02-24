@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories.Depesas
 {
-    public class DespesaRepository : IDespesaRepository
+    internal class DespesaRepository : IDespesaRepository
     {
         internal readonly AppDbContext _dbContext;
         public DespesaRepository(AppDbContext dbContext) { 
