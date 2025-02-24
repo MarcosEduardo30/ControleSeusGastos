@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Despesas.CriarDespesa
+namespace Application.Despesas.BuscarDespesa
 {
-    public record CriarDespesaOutput
+    public record BuscarDespesaDTO
     {
         public string Nome { get; set; }
         public string Descricao { get; set; }

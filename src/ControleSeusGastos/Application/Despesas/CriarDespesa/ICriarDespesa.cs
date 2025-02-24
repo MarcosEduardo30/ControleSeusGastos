@@ -8,6 +8,6 @@ namespace Application.Despesas.CriarDespesa
 {
     public interface ICriarDespesa
     {
-        public Task<CriarDespesaOutput> CriarNovaDespesa(CriarDespesaInput input);
+        public Task<CriarDespesaDTO> CriarNovaDespesa(CriarDespesaDTO input);
     }
 }

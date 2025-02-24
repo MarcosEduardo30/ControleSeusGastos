@@ -15,7 +15,7 @@ namespace Application.Despesas.CriarDespesa
             _despesaRepository = despesaRepository;
         }
 
-        public async Task<CriarDespesaOutput> CriarNovaDespesa(CriarDespesaInput input)
+        public async Task<CriarDespesaDTO> CriarNovaDespesa(CriarDespesaDTO input)
         {
             var novaDespesa = new Despesa()
             {
@@ -26,7 +26,7 @@ namespace Application.Despesas.CriarDespesa
 
             await _despesaRepository.criar(novaDespesa);
 
-            var despesaOutput = new CriarDespesaOutput()
+            var despesaOutput = new CriarDespesaDTO()
             {
                 Nome = novaDespesa.Nome,
                 Descricao = novaDespesa.Descricao,
