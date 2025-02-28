@@ -4,6 +4,6 @@ namespace Application.Usuarios.CriarUsuario
 {
     public interface ICriarUsuarioService
     {
-        public Task<EditarUsuarioOutput> Criar(CriarUsuarioInput dados);
+        public Task<CriarUsuarioOutput> Criar(CriarUsuarioInput dados);
     }
 }

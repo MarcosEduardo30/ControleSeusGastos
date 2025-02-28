@@ -13,7 +13,7 @@ namespace Application.Usuarios.CriarUsuario
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<EditarUsuarioOutput> Criar(CriarUsuarioInput dados)
+        public async Task<CriarUsuarioOutput> Criar(CriarUsuarioInput dados)
         {
             Usuario novoUsuario = new Usuario()
             {
@@ -23,7 +23,7 @@ namespace Application.Usuarios.CriarUsuario
 
             await _usuarioRepository.Criar(novoUsuario);
 
-            EditarUsuarioOutput resul = new EditarUsuarioOutput()
+            CriarUsuarioOutput resul = new CriarUsuarioOutput()
             {
                 username = novoUsuario.username
             };
