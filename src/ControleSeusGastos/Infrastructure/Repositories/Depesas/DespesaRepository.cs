@@ -36,5 +36,19 @@ namespace Infrastructure.Repositories.Depesas
         {
             return await _dbContext.Despesas.Where(d => d.Id == id).ExecuteDeleteAsync();   
         }
+
+        public async Task<List<Despesa>?> buscarPorIdUsuario(int idUsuario)
+        {
+            return await _dbContext.Despesas
+                    .Where(d => d.Usuario_Id == idUsuario)
+                    .ToListAsync();
+        }
+
+        public async Task<List<Despesa>?> buscarPorPeriodo(int idUsuario, DateTime inicio, DateTime fim)
+        {
+            return await _dbContext.Despesas
+                .Where(d => d.Usuario_Id == idUsuario && d.Data >= inicio && d.Data <= fim)
+                .ToListAsync();
+        }
     }
 }
