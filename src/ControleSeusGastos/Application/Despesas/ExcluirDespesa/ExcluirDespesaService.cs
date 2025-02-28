@@ -2,11 +2,11 @@
 
 namespace Application.Despesas.ExcluirDespesa
 {
-    internal class ExcluirDespesa : IExcluirDespesa
+    internal class ExcluirDespesaService : IExcluirDespesaService
     {
         private readonly IDespesaRepository _despesaRepository;
 
-        public ExcluirDespesa(IDespesaRepository despesaRepository)
+        public ExcluirDespesaService(IDespesaRepository despesaRepository)
         {
             _despesaRepository = despesaRepository;
         }
