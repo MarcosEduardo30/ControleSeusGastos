@@ -13,11 +13,19 @@ namespace Application.Usuarios.EditarUsuario
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<EditarUsuarioOutput> editar(EditarUsuarioInput usuario)
+        public async Task<EditarUsuarioOutput> editar(EditarUsuarioInput NovoUsuario)
         {
-            Usuario novoUsuario = new Usuario() { password = usuario.password, username = usuario.username};
+            Usuario? usuario = await _usuarioRepository.BuscarPorId(NovoUsuario.id);
 
-            await _usuarioRepository.Atualizar(novoUsuario);
+            if(usuario == null)
+            {
+                return null;
+            }
+
+            usuario.username = NovoUsuario.username;
+            usuario.password = NovoUsuario.password;
+
+            await _usuarioRepository.Atualizar(usuario);
 
             EditarUsuarioOutput resul = new EditarUsuarioOutput()
             {
