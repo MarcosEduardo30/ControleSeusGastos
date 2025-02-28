@@ -13,9 +13,22 @@ namespace Infrastructure.Db
 
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             optionsBuilder.UseNpgsql(configuration["postgresCon"]);
-
-
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Despesa>()
+                .HasOne(e => e.Categoria)
+                .WithMany()
+                .HasForeignKey(e => e.Categoria_Id);
+
+            modelBuilder.Entity<Despesa>()
+                .HasOne(e => e.Usuario)
+                .WithMany()
+                .HasForeignKey(e => e.Usuario_Id)
+                .IsRequired();
+        }
+
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Despesa> Despesas { get; set; }
     }
