@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Despesas.BuscarDespesa.DTO
 {
-    public record BuscarDespesaDTO
+    public record BuscarDespesaOutput
     {
         public string Nome { get; set; }
         public string Descricao { get; set; }
