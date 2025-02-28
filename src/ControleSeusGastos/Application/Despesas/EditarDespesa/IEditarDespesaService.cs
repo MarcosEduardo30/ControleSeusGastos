@@ -1,13 +1,8 @@
 ﻿using Application.Despesas.EditarDespesa.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Despesas.EditarDespesa
 {
-    public interface IEditarDespesa
+    public interface IEditarDespesaService
     {
         public Task<EditarDespesaOutput?> Editar(EditarDespesaInput NovaDespesa);
     }

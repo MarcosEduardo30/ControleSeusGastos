@@ -1,18 +1,13 @@
 ﻿using Application.Despesas.CriarDespesa.DTO;
 using Domain.Despesas;
 using Infrastructure.Repositories.Depesas;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Despesas.CriarDespesa
 {
-    internal class CriarDespesa : ICriarDespesa
+    internal class CriarDespesaService : ICriarDespesaService
     {
         private readonly IDespesaRepository _despesaRepository;
-        public CriarDespesa(IDespesaRepository despesaRepository) { 
+        public CriarDespesaService(IDespesaRepository despesaRepository) { 
             _despesaRepository = despesaRepository;
         }
 

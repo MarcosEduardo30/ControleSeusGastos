@@ -3,11 +3,11 @@ using Infrastructure.Repositories.Depesas;
 
 namespace Application.Despesas.EditarDespesa
 {
-    internal class EditarDespesa : IEditarDespesa
+    internal class EditarDespesaService : IEditarDespesaService
     {
         private readonly IDespesaRepository _despesaRepository;
 
-        public EditarDespesa(IDespesaRepository despesaRepository) { 
+        public EditarDespesaService(IDespesaRepository despesaRepository) { 
             _despesaRepository = despesaRepository;
         }
         public async Task<EditarDespesaOutput?> Editar(EditarDespesaInput NovaDespesa)

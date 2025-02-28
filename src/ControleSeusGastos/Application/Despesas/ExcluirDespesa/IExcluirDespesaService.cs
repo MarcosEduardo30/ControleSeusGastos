@@ -1,6 +1,6 @@
 ﻿namespace Application.Despesas.ExcluirDespesa
 {
-    public interface IExcluirDespesa
+    public interface IExcluirDespesaService
     {
         public Task<bool> Excluir(int despesaId);
     }
