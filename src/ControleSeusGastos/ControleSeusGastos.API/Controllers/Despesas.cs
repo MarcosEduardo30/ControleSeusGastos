@@ -34,10 +34,10 @@ namespace ControleSeusGastos.API.Controllers
         [HttpPost()]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<ResultadoAPI<CriarDespesaDTO>>> CriarDespesa(CriarDespesaDTO input)
+        public async Task<ActionResult<ResultadoAPI<CriarDespesaOutput>>> CriarDespesa(CriarDespesaInput input)
         {
             var novadespesa = await _criarDespesa.CriarNovaDespesa(input);
-            var resultado = new ResultadoAPI<CriarDespesaDTO>(StatusResult.Success, novadespesa);
+            var resultado = new ResultadoAPI<CriarDespesaOutput>(StatusResult.Success, novadespesa);
             return Ok(resultado);
         }
 

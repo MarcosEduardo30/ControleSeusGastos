@@ -11,21 +11,27 @@ namespace Application.Despesas.CriarDespesa
             _despesaRepository = despesaRepository;
         }
 
-        public async Task<CriarDespesaDTO> CriarNovaDespesa(CriarDespesaDTO input)
+        public async Task<CriarDespesaOutput> CriarNovaDespesa(CriarDespesaInput input)
         {
             var novaDespesa = new Despesa()
             {
                 Nome = input.Nome,
+                Valor = input.Valor,
                 Descricao = input.Descricao,
-                Data = input.Data
+                Data = input.Data,
+                Categoria_Id = input.Categoria_Id,
+                Usuario_Id = input.Usuario_Id
             };
 
             await _despesaRepository.criar(novaDespesa);
+            
 
-            var despesaOutput = new CriarDespesaDTO()
+            var despesaOutput = new CriarDespesaOutput()
             {
                 Nome = novaDespesa.Nome,
+                Valor = novaDespesa.Valor,
                 Descricao = novaDespesa.Descricao,
+                //Categoria_Nome = novaDespesa.Categoria.nome,
                 Data = novaDespesa.Data
             };
 

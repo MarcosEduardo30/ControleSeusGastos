@@ -4,6 +4,6 @@ namespace Application.Despesas.CriarDespesa
 {
     public interface ICriarDespesaService
     {
-        public Task<CriarDespesaDTO> CriarNovaDespesa(CriarDespesaDTO input);
+        public Task<CriarDespesaOutput> CriarNovaDespesa(CriarDespesaInput input);
     }
 }
