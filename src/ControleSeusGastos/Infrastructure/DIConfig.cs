@@ -1,5 +1,6 @@
 ﻿using Infrastructure.Db;
 using Infrastructure.Repositories.Depesas;
+using Infrastructure.Repositories.Usuarios;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure
@@ -10,6 +11,7 @@ namespace Infrastructure
         {
             services.AddDbContext<AppDbContext>();
             services.AddScoped<IDespesaRepository, DespesaRepository>();
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
             return services;
         }

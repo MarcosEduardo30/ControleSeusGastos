@@ -2,6 +2,7 @@
 using Domain.Categorias;
 using Domain.Despesas;
 using Microsoft.Extensions.Configuration;
+using Domain.Usuarios;
 
 namespace Infrastructure.Db
 {
@@ -31,5 +32,6 @@ namespace Infrastructure.Db
 
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Despesa> Despesas { get; set; }
+        public DbSet<Usuario> Usuarios {  get; set; }
     }
 }
