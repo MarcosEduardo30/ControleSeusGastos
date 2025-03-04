@@ -1,11 +1,11 @@
 ﻿
-using Application.Usuarios.BuscarUsuario;
-using Application.Usuarios.BuscarUsuario.DTO;
-using Application.Usuarios.CriarUsuario;
-using Application.Usuarios.CriarUsuario.DTO;
-using Application.Usuarios.EditarUsuario;
-using Application.Usuarios.EditarUsuario.DTO;
-using Application.Usuarios.ExcluirUsuario;
+using Application.Services.Usuarios.BuscarUsuario;
+using Application.Services.Usuarios.BuscarUsuario.DTO;
+using Application.Services.Usuarios.CriarUsuario;
+using Application.Services.Usuarios.CriarUsuario.DTO;
+using Application.Services.Usuarios.EditarUsuario;
+using Application.Services.Usuarios.EditarUsuario.DTO;
+using Application.Services.Usuarios.ExcluirUsuario;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleSeusGastos.API.Controllers

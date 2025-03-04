@@ -1,10 +1,11 @@
-﻿using Application.Despesas.BuscarDespesa;
-using Application.Despesas.BuscarDespesa.DTO;
-using Application.Despesas.CriarDespesa;
-using Application.Despesas.CriarDespesa.DTO;
-using Application.Despesas.EditarDespesa;
-using Application.Despesas.EditarDespesa.DTO;
-using Application.Despesas.ExcluirDespesa;
+﻿using Application.Despesas.BuscarDespesa.DTO;
+using Application.Services.Despesas.BuscarDespesa;
+using Application.Services.Despesas.BuscarDespesa.DTO;
+using Application.Services.Despesas.CriarDespesa;
+using Application.Services.Despesas.CriarDespesa.DTO;
+using Application.Services.Despesas.EditarDespesa;
+using Application.Services.Despesas.EditarDespesa.DTO;
+using Application.Services.Despesas.ExcluirDespesa;
 using ControleSeusGastos.API.Resultados;
 using Microsoft.AspNetCore.Mvc;
 

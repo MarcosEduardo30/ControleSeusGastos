@@ -1,11 +1,11 @@
-﻿using Application.Despesas.BuscarDespesa;
-using Application.Despesas.CriarDespesa;
-using Application.Despesas.EditarDespesa;
-using Application.Despesas.ExcluirDespesa;
-using Application.Usuarios.BuscarUsuario;
-using Application.Usuarios.CriarUsuario;
-using Application.Usuarios.EditarUsuario;
-using Application.Usuarios.ExcluirUsuario;
+﻿using Application.Services.Despesas.BuscarDespesa;
+using Application.Services.Despesas.CriarDespesa;
+using Application.Services.Despesas.EditarDespesa;
+using Application.Services.Despesas.ExcluirDespesa;
+using Application.Services.Usuarios.BuscarUsuario;
+using Application.Services.Usuarios.CriarUsuario;
+using Application.Services.Usuarios.EditarUsuario;
+using Application.Services.Usuarios.ExcluirUsuario;
 using Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 

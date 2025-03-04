@@ -7,16 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Despesas\BuscarDespesa\DTO\BuscarDespesaOutput.cs" />
+    <None Include="Services\Despesas\BuscarDespesa\DTO\BuscarDespesaOutput.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Validacao\" />
   </ItemGroup>
 
 </Project>
