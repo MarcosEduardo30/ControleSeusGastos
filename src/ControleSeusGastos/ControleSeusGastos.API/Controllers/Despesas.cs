@@ -42,7 +42,7 @@ namespace ControleSeusGastos.API.Controllers
         }
 
 
-        [HttpGet()]
+        [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public async Task<ActionResult<ResultadoAPI<BuscarDespesaOutput>>> BuscarDespesa(int id)

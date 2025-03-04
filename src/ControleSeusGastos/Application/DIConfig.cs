@@ -23,6 +23,9 @@ namespace Application
             services.AddScoped<ICriarUsuarioService, CriarUsuarioService>();
             services.AddScoped<IEditarUsuarioService, EditarUsuarioService>();
             services.AddScoped<IExcluirUsuarioService, ExcluirUsuarioService>();
+
+            services.AddScoped<CriarDespesaValidador>();
+
             services.AddInfrastructureServices();
 
             return services;

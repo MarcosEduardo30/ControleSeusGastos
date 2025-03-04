@@ -7,12 +7,17 @@ namespace Application.Despesas.CriarDespesa
     internal class CriarDespesaService : ICriarDespesaService
     {
         private readonly IDespesaRepository _despesaRepository;
-        public CriarDespesaService(IDespesaRepository despesaRepository) { 
+        private readonly CriarDespesaValidador _validador;
+        public CriarDespesaService(IDespesaRepository despesaRepository, CriarDespesaValidador validador) { 
             _despesaRepository = despesaRepository;
+            _validador = validador;
         }
 
         public async Task<CriarDespesaOutput> CriarNovaDespesa(CriarDespesaInput input)
         {
+
+            var erros = _validador.validar(input);
+
             var novaDespesa = new Despesa()
             {
                 Nome = input.Nome,
