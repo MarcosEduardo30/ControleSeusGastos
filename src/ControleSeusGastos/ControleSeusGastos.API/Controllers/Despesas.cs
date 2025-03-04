@@ -43,7 +43,6 @@ namespace ControleSeusGastos.API.Controllers
                 return BadRequest(new ResultadoAPI<CriarDespesaOutput>(StatusResult.Error, null));
             }
 
-
             var resultado = new ResultadoAPI<CriarDespesaOutput>(StatusResult.Success, novadespesa.Valor);
             return Ok(resultado);
         }
