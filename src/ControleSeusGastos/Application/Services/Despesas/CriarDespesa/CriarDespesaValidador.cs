@@ -13,7 +13,7 @@ namespace Application.Services.Despesas.CriarDespesa
             _usuarioRepository = usuarioRepository;
         }
 
-        public List<Erro> validar(CriarDespesaInput input)
+        public async Task<List<Erro>> validar(CriarDespesaInput input)
         {
             List<Erro> erros = new List<Erro>();
 
@@ -37,7 +37,7 @@ namespace Application.Services.Despesas.CriarDespesa
 
             // Validações da categoria serão feitas depois
 
-            if (!UsuarioExisteDB(input.Usuario_Id))
+            if (await UsuarioExisteDB(input.Usuario_Id) == false)
             {
                 erros.Add(new Erro("Usuario_Invalido", "Usuário da despesa não está cadastrado"));
                 return erros;
@@ -46,9 +46,9 @@ namespace Application.Services.Despesas.CriarDespesa
             return erros;
         }
 
-        private bool UsuarioExisteDB(int usuarioId)
+        private async Task<bool> UsuarioExisteDB(int usuarioId)
         {
-            var usuario = _usuarioRepository.BuscarPorId(usuarioId);
+            var usuario = await _usuarioRepository.BuscarPorId(usuarioId);
             if (usuario is null)
             {
                 return false;

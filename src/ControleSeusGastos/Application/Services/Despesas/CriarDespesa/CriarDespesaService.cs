@@ -17,7 +17,13 @@ namespace Application.Services.Despesas.CriarDespesa
         public async Task<Resultado<CriarDespesaOutput>> CriarNovaDespesa(CriarDespesaInput input)
         {
 
-            var erros = _validador.validar(input);
+            var erros = await _validador.validar(input);
+
+            if(erros.Count > 0)
+            {
+                var erroResul = new Resultado<CriarDespesaOutput>(erros, null);
+                return erroResul;
+            }
 
             var novaDespesa = new Despesa()
             {
