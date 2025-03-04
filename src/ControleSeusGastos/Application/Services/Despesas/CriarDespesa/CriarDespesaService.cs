@@ -14,7 +14,7 @@ namespace Application.Services.Despesas.CriarDespesa
             _validador = validador;
         }
 
-        public async Task<CriarDespesaOutput> CriarNovaDespesa(CriarDespesaInput input)
+        public async Task<Resultado<CriarDespesaOutput>> CriarNovaDespesa(CriarDespesaInput input)
         {
 
             var erros = _validador.validar(input);
@@ -41,7 +41,9 @@ namespace Application.Services.Despesas.CriarDespesa
                 Data = novaDespesa.Data
             };
 
-            return despesaOutput;
+            var resultado = new Resultado<CriarDespesaOutput>(null, despesaOutput);
+
+            return resultado;
         }
     }
 }

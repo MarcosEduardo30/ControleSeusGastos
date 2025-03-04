@@ -38,7 +38,7 @@ namespace ControleSeusGastos.API.Controllers
         public async Task<ActionResult<ResultadoAPI<CriarDespesaOutput>>> CriarDespesa(CriarDespesaInput input)
         {
             var novadespesa = await _criarDespesa.CriarNovaDespesa(input);
-            var resultado = new ResultadoAPI<CriarDespesaOutput>(StatusResult.Success, novadespesa);
+            var resultado = new ResultadoAPI<CriarDespesaOutput>(StatusResult.Success, novadespesa.Valor);
             return Ok(resultado);
         }
 
