@@ -64,7 +64,7 @@ namespace ControleSeusGastos.API.Controllers
 
         }
 
-        [HttpGet("BuscarPorUsuario")]
+        [HttpGet("BuscarPorUsuario/{idUsuario}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public async Task<ActionResult<ResultadoAPI<List<BuscarDespesaOutput>>>> BuscarPorIdUsuario(int idUsuario)
@@ -80,12 +80,12 @@ namespace ControleSeusGastos.API.Controllers
             return Ok(resultado);
         }
 
-        [HttpGet("BuscarPorPeriodo")]
+        [HttpGet("BuscarPorPeriodo/{idUsuario}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<ResultadoAPI<List<BuscarDespesaOutput>>>> BuscarPorPeriodo(BuscarPorPeriodoInput input)
+        public async Task<ActionResult<ResultadoAPI<List<BuscarDespesaOutput>>>> BuscarPorPeriodo(int idUsuario,BuscarPorPeriodoInput input)
         {
-            var despesas = await _buscarDespesa.BuscarPorPeriodo(input);
+            var despesas = await _buscarDespesa.BuscarPorPeriodo(idUsuario, input);
 
             if (despesas == null)
             {

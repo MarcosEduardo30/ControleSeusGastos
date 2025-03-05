@@ -7,6 +7,6 @@ namespace Application.Services.Despesas.BuscarDespesa
     {
         public Task<BuscarDespesaOutput?> BuscarPorId(int idDespesa);
         public Task<List<BuscarDespesaOutput>?> BuscarPorIdUsuario(int IdUsuario);
-        public Task<List<BuscarDespesaOutput>?> BuscarPorPeriodo(BuscarPorPeriodoInput input);
+        public Task<List<BuscarDespesaOutput>?> BuscarPorPeriodo(int idUsuario, BuscarPorPeriodoInput input);
     }
 }
