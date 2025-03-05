@@ -1,14 +1,18 @@
-﻿namespace ControleSeusGastos.API.Resultados
+﻿using Application.Validacao;
+
+namespace ControleSeusGastos.API.Resultados
 {
     public class ResultadoAPI<T>
     {
         public StatusResult status { get; set; }
-        public T data { get; set; }
+        public T? data { get; set; }
+        public List<Erro>? erros { get; set; }
 
-        public ResultadoAPI(StatusResult Status, T Data)
+        public ResultadoAPI(StatusResult Status, T? Data, List<Erro>? Erros = null)
         {
-            this.status = Status;
-            this.data = Data;
+            status = Status;
+            data = Data;
+            erros = Erros;
         }
     }
 }

@@ -40,7 +40,7 @@ namespace ControleSeusGastos.API.Controllers
             var novadespesa = await _criarDespesa.CriarNovaDespesa(input);
             if (novadespesa.Erros is not null)
             {
-                return BadRequest(new ResultadoAPI<CriarDespesaOutput>(StatusResult.Error, null));
+                return BadRequest(new ResultadoAPI<CriarDespesaOutput>(StatusResult.Error, null, novadespesa.Erros));
             }
 
             var resultado = new ResultadoAPI<CriarDespesaOutput>(StatusResult.Success, novadespesa.Valor);
