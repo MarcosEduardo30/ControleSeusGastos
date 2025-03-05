@@ -7,13 +7,10 @@ namespace Application.Services.Despesas.CriarDespesa
 {
     internal class CriarDespesaValidador : IValidador<CriarDespesaInput>
     {
-        private readonly IUsuarioRepository _usuarioRepository;
-        private readonly ICategoriaRepository _categoriaRepository;
-
-        public CriarDespesaValidador(IUsuarioRepository usuarioRepository, ICategoriaRepository categoriaRepository)
+        private readonly IValidadorDatabase _validadorDB;
+        public CriarDespesaValidador(IValidadorDatabase validadorDB)
         {
-            _usuarioRepository = usuarioRepository;
-            _categoriaRepository = categoriaRepository;
+            _validadorDB = validadorDB;
         }
 
         public async Task<List<Erro>> validar(CriarDespesaInput input)
@@ -40,40 +37,20 @@ namespace Application.Services.Despesas.CriarDespesa
 
             if(input.Categoria_Id is not null)
             {
-                if (await CategoriaExisteDB((int)input.Categoria_Id) == false)
+                if (await _validadorDB.ExisteCategoriaDB((int)input.Categoria_Id) == false)
                 {
                     erros.Add(new Erro("Categoria_Invalida", "A Categoria da despesa não existe"));
                     return erros;
                 }
             }
 
-            if (await UsuarioExisteDB(input.Usuario_Id) == false)
+            if (await _validadorDB.ExisteUsuarioDB(input.Usuario_Id) == false)
             {
                 erros.Add(new Erro("Usuario_Invalido", "Usuário da despesa não está cadastrado"));
                 return erros;
             }
 
             return erros;
-        }
-
-        private async Task<bool> UsuarioExisteDB(int usuarioId)
-        {
-            var usuario = await _usuarioRepository.BuscarPorId(usuarioId);
-            if (usuario is null)
-            {
-                return false;
-            }
-            return true;
-        }
-
-        private async Task<bool> CategoriaExisteDB(int categoriaId)
-        {
-            var categoria = await _categoriaRepository.buscarPorId(categoriaId);
-            if (categoria is null)
-            {
-                return false;
-            }
-            return true;
         }
     }
 }

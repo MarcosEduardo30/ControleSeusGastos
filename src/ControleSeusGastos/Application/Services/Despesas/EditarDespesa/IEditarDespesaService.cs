@@ -4,6 +4,6 @@ namespace Application.Services.Despesas.EditarDespesa
 {
     public interface IEditarDespesaService
     {
-        public Task<EditarDespesaOutput?> Editar(EditarDespesaInput NovaDespesa);
+        public Task<Resultado<EditarDespesaOutput>> Editar(int id, EditarDespesaInput NovaDespesa);
     }
 }

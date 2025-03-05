@@ -23,8 +23,8 @@ namespace ControleSeusGastos.API.Controllers
         public Despesas(ICriarDespesaService criarDespesa,
             IBuscarDespesaService buscarDespesa,
             IEditarDespesaService editarDespesa,
-            IExcluirDespesaService excluirDespesa) 
-        { 
+            IExcluirDespesaService excluirDespesa)
+        {
             _criarDespesa = criarDespesa;
             _buscarDespesa = buscarDespesa;
             _editarDespesa = editarDespesa;
@@ -96,19 +96,19 @@ namespace ControleSeusGastos.API.Controllers
             return Ok(resultado);
         }
 
-        [HttpPut()]
+        [HttpPut("{id}")]
         [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
-        public async Task<ActionResult<ResultadoAPI<EditarDespesaOutput>>> EditarDespesa(EditarDespesaInput novaDespesa)
+        [ProducesResponseType(400)]
+        public async Task<ActionResult<ResultadoAPI<EditarDespesaOutput>>> EditarDespesa(int id, EditarDespesaInput novaDespesa)
         {
-            var despesa = await _editarDespesa.Editar(novaDespesa);
+            var despesa = await _editarDespesa.Editar(id, novaDespesa);
 
-            if (despesa == null)
+            if (despesa.Erros is not null)
             {
-                return NotFound();
+                return BadRequest(new ResultadoAPI<EditarDespesaOutput>(StatusResult.Error, null, despesa.Erros));
             }
 
-            var resultado = new ResultadoAPI<EditarDespesaOutput>(StatusResult.Success, despesa);
+            var resultado = new ResultadoAPI<EditarDespesaOutput>(StatusResult.Success, despesa.Valor);
             return Ok(resultado);
         }
 

@@ -6,6 +6,7 @@ using Application.Services.Usuarios.BuscarUsuario;
 using Application.Services.Usuarios.CriarUsuario;
 using Application.Services.Usuarios.EditarUsuario;
 using Application.Services.Usuarios.ExcluirUsuario;
+using Application.Validacao;
 using Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,7 +25,9 @@ namespace Application
             services.AddScoped<IEditarUsuarioService, EditarUsuarioService>();
             services.AddScoped<IExcluirUsuarioService, ExcluirUsuarioService>();
 
+            services.AddScoped<IValidadorDatabase, ValidadorDatabase>();
             services.AddScoped<CriarDespesaValidador>();
+            services.AddScoped<EditarDespesaValidador>();
 
             services.AddInfrastructureServices();
 
