@@ -1,6 +1,5 @@
 ﻿using Application.Despesas.BuscarDespesa.DTO;
 using Application.Services.Despesas.BuscarDespesa;
-using Application.Services.Despesas.BuscarDespesa.DTO;
 using Application.Services.Despesas.CriarDespesa;
 using Application.Services.Despesas.CriarDespesa.DTO;
 using Application.Services.Despesas.EditarDespesa;
@@ -83,9 +82,9 @@ namespace ControleSeusGastos.API.Controllers
         [HttpGet("BuscarPorPeriodo/{idUsuario}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<ResultadoAPI<List<BuscarDespesaOutput>>>> BuscarPorPeriodo(int idUsuario,BuscarPorPeriodoInput input)
+        public async Task<ActionResult<ResultadoAPI<List<BuscarDespesaOutput>>>> BuscarPorPeriodo(int idUsuario, DateTime DataInicio, DateTime DataFim)
         {
-            var despesas = await _buscarDespesa.BuscarPorPeriodo(idUsuario, input);
+            var despesas = await _buscarDespesa.BuscarPorPeriodo(idUsuario, DataInicio, DataFim);
 
             if (despesas == null)
             {

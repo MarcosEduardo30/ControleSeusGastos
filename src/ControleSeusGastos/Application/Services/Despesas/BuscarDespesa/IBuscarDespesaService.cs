@@ -1,5 +1,4 @@
 ﻿using Application.Despesas.BuscarDespesa.DTO;
-using Application.Services.Despesas.BuscarDespesa.DTO;
 
 namespace Application.Services.Despesas.BuscarDespesa
 {
@@ -7,6 +6,6 @@ namespace Application.Services.Despesas.BuscarDespesa
     {
         public Task<BuscarDespesaOutput?> BuscarPorId(int idDespesa);
         public Task<List<BuscarDespesaOutput>?> BuscarPorIdUsuario(int IdUsuario);
-        public Task<List<BuscarDespesaOutput>?> BuscarPorPeriodo(int idUsuario, BuscarPorPeriodoInput input);
+        public Task<List<BuscarDespesaOutput>?> BuscarPorPeriodo(int idUsuario, DateTime DataInicio, DateTime DataFim);
     }
 }

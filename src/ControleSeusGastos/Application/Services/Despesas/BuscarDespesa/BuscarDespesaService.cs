@@ -1,6 +1,4 @@
 ﻿using Application.Despesas.BuscarDespesa.DTO;
-using Application.Services.Despesas.BuscarDespesa.DTO;
-using Domain.Despesas;
 using Infrastructure.Repositories.Depesas;
 
 namespace Application.Services.Despesas.BuscarDespesa
@@ -66,9 +64,9 @@ namespace Application.Services.Despesas.BuscarDespesa
             return resul;
         }
 
-        public async Task<List<BuscarDespesaOutput>?> BuscarPorPeriodo(int idUsuario, BuscarPorPeriodoInput input)
+        public async Task<List<BuscarDespesaOutput>?> BuscarPorPeriodo(int idUsuario, DateTime DataInicio, DateTime DataFim)
         {
-            var despesas = await _despesaRepository.buscarPorPeriodo(idUsuario, input.DataInicio, input.DataFim);
+            var despesas = await _despesaRepository.buscarPorPeriodo(idUsuario, DataInicio, DataFim);
 
             if (despesas == null || despesas.Count <= 0)
             {

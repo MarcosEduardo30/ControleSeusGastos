@@ -1,11 +1,6 @@
 ﻿using Domain.Despesas;
 using Infrastructure.Db;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories.Depesas
 {
@@ -52,7 +47,7 @@ namespace Infrastructure.Repositories.Depesas
         public async Task<List<Despesa>?> buscarPorPeriodo(int idUsuario, DateTime inicio, DateTime fim)
         {
             return await _dbContext.Despesas
-                .Where(d => d.Usuario_Id == idUsuario && d.Data >= inicio && d.Data <= fim)
+                .Where(d => d.Usuario_Id == idUsuario && d.Data >= inicio.ToUniversalTime() && d.Data <= fim.ToUniversalTime())
                 .Include(d => d.Categoria)
                 .Include(d => d.Usuario)
                 .ToListAsync();
