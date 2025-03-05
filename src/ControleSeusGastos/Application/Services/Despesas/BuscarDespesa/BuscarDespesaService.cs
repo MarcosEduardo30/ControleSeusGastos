@@ -1,5 +1,6 @@
 ﻿using Application.Despesas.BuscarDespesa.DTO;
 using Application.Services.Despesas.BuscarDespesa.DTO;
+using Domain.Despesas;
 using Infrastructure.Repositories.Depesas;
 
 namespace Application.Services.Despesas.BuscarDespesa
@@ -24,7 +25,10 @@ namespace Application.Services.Despesas.BuscarDespesa
             var despesaDTO = new BuscarDespesaOutput
             {
                 Data = despesa.Data,
+                Valor = despesa.Valor,
                 Descricao = despesa.Descricao,
+                Categoria_Nome = despesa.Categoria.nome,
+                Usuario_Nome = despesa.Usuario.username,
                 Nome = despesa.Nome
             };
 
@@ -44,12 +48,18 @@ namespace Application.Services.Despesas.BuscarDespesa
 
             foreach (var desp in despesas)
             {
-                resul.Add(new BuscarDespesaOutput
+                var output = new BuscarDespesaOutput
                 {
                     Data = desp.Data,
+                    Valor = desp.Valor,
                     Descricao = desp.Descricao,
+                    Usuario_Nome = desp.Usuario.username,
                     Nome = desp.Nome
-                });
+                };
+
+                output.Categoria_Nome = desp.Categoria != null ? desp.Categoria.nome : null;
+
+                resul.Add(output);
             }
 
 
@@ -69,12 +79,18 @@ namespace Application.Services.Despesas.BuscarDespesa
 
             foreach (var desp in despesas)
             {
-                resul.Add(new BuscarDespesaOutput
+                var output = new BuscarDespesaOutput
                 {
                     Data = desp.Data,
+                    Valor = desp.Valor,
                     Descricao = desp.Descricao,
+                    Usuario_Nome = desp.Usuario.username,
                     Nome = desp.Nome
-                });
+                };
+
+                output.Categoria_Nome = desp.Categoria != null ? desp.Categoria.nome : null;
+
+                resul.Add(output);
             }
             return resul;
         }

@@ -1,7 +1,5 @@
 ﻿using Application.Services.Despesas.CriarDespesa.DTO;
 using Application.Validacao;
-using Infrastructure.Repositories.Categorias;
-using Infrastructure.Repositories.Usuarios;
 
 namespace Application.Services.Despesas.CriarDespesa
 {
@@ -13,7 +11,7 @@ namespace Application.Services.Despesas.CriarDespesa
             _validadorDB = validadorDB;
         }
 
-        public async Task<List<Erro>> validar(CriarDespesaInput input)
+        public async Task<List<Erro>> validar(CriarDespesaInput input, int? id = null)
         {
             List<Erro> erros = new List<Erro>();
 

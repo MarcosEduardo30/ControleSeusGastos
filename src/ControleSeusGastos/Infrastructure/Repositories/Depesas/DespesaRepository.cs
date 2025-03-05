@@ -23,7 +23,10 @@ namespace Infrastructure.Repositories.Depesas
 
         public async Task<Despesa?> buscaPorId(int id)
         {
-            return await _dbContext.Despesas.FirstOrDefaultAsync(d => d.Id == id);
+            return await _dbContext.Despesas
+                .Include(d => d.Categoria)
+                .Include(d => d.Usuario)
+                .FirstOrDefaultAsync(d => d.Id == id);
         }
 
         public async Task<int> atualizar(Despesa despesa)
@@ -40,14 +43,18 @@ namespace Infrastructure.Repositories.Depesas
         public async Task<List<Despesa>?> buscarPorIdUsuario(int idUsuario)
         {
             return await _dbContext.Despesas
-                    .Where(d => d.Usuario_Id == idUsuario)
-                    .ToListAsync();
+                .Where(d => d.Usuario_Id == idUsuario)
+                .Include(d => d.Categoria)
+                .Include(d => d.Usuario)
+                .ToListAsync();
         }
 
         public async Task<List<Despesa>?> buscarPorPeriodo(int idUsuario, DateTime inicio, DateTime fim)
         {
             return await _dbContext.Despesas
                 .Where(d => d.Usuario_Id == idUsuario && d.Data >= inicio && d.Data <= fim)
+                .Include(d => d.Categoria)
+                .Include(d => d.Usuario)
                 .ToListAsync();
         }
     }

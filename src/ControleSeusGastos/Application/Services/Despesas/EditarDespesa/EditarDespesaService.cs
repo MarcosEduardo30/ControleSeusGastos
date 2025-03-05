@@ -16,7 +16,7 @@ namespace Application.Services.Despesas.EditarDespesa
         }
         public async Task<Resultado<EditarDespesaOutput>> Editar(int id,EditarDespesaInput NovaDespesa)
         {
-            var erros = await _validador.validar(NovaDespesa);
+            var erros = await _validador.validar(NovaDespesa, id);
             if (erros.Count > 0)
             {
                 var erroResul = new Resultado<EditarDespesaOutput>(erros, null);
