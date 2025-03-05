@@ -1,5 +1,6 @@
 ﻿using Application.Services.Despesas.CriarDespesa.DTO;
 using Application.Validacao;
+using Infrastructure.Repositories.Categorias;
 using Infrastructure.Repositories.Usuarios;
 
 namespace Application.Services.Despesas.CriarDespesa
@@ -7,10 +8,12 @@ namespace Application.Services.Despesas.CriarDespesa
     internal class CriarDespesaValidador : IValidador<CriarDespesaInput>
     {
         private readonly IUsuarioRepository _usuarioRepository;
+        private readonly ICategoriaRepository _categoriaRepository;
 
-        public CriarDespesaValidador(IUsuarioRepository usuarioRepository)
+        public CriarDespesaValidador(IUsuarioRepository usuarioRepository, ICategoriaRepository categoriaRepository)
         {
             _usuarioRepository = usuarioRepository;
+            _categoriaRepository = categoriaRepository;
         }
 
         public async Task<List<Erro>> validar(CriarDespesaInput input)
@@ -35,7 +38,14 @@ namespace Application.Services.Despesas.CriarDespesa
                 return erros;
             }
 
-            // Validações da categoria serão feitas depois
+            if(input.Categoria_Id is not null)
+            {
+                if (await CategoriaExisteDB((int)input.Categoria_Id) == false)
+                {
+                    erros.Add(new Erro("Categoria_Invalida", "A Categoria da despesa não existe"));
+                    return erros;
+                }
+            }
 
             if (await UsuarioExisteDB(input.Usuario_Id) == false)
             {
@@ -50,6 +60,16 @@ namespace Application.Services.Despesas.CriarDespesa
         {
             var usuario = await _usuarioRepository.BuscarPorId(usuarioId);
             if (usuario is null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private async Task<bool> CategoriaExisteDB(int categoriaId)
+        {
+            var categoria = await _categoriaRepository.buscarPorId(categoriaId);
+            if (categoria is null)
             {
                 return false;
             }
