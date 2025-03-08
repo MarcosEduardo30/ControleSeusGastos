@@ -8,6 +8,7 @@ namespace Application.Services.Despesas.EditarDespesa.DTO
 {
     public class EditarDespesaInput
     {
+        public int Valor {  get; set; }
         public string Nome { get; set; }
         public string? Descricao { get; set; }
         public int? Categoria_id { get; set; }

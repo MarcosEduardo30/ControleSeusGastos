@@ -3,7 +3,7 @@ using Application.Validacao;
 
 namespace Application.Services.Despesas.EditarDespesa
 {
-    internal class EditarDespesaValidador : IValidador<EditarDespesaInput>
+    public class EditarDespesaValidador : IValidador<EditarDespesaInput>
     {
         private readonly IValidadorDatabase _validadorDatabase;
         public EditarDespesaValidador(IValidadorDatabase validadorDatabase)
@@ -19,6 +19,12 @@ namespace Application.Services.Despesas.EditarDespesa
             if(await _validadorDatabase.ExisteDespesaDB((int)id) == false)
             {
                 erros.Add(new Erro("despesa_invalida", "Despesa não foi encontrada"));
+                return erros;
+            }
+
+            if (input.Valor <= 0)
+            {
+                erros.Add(new Erro("Valor_Invalido", "Valor da despesa deve ser maior do que zero"));
                 return erros;
             }
 
