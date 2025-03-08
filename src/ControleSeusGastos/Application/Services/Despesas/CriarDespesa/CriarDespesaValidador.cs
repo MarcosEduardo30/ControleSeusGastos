@@ -3,7 +3,7 @@ using Application.Validacao;
 
 namespace Application.Services.Despesas.CriarDespesa
 {
-    internal class CriarDespesaValidador : IValidador<CriarDespesaInput>
+    public class CriarDespesaValidador : IValidador<CriarDespesaInput>
     {
         private readonly IValidadorDatabase _validadorDB;
         public CriarDespesaValidador(IValidadorDatabase validadorDB)

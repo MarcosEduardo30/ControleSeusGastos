@@ -4,7 +4,7 @@ using Infrastructure.Repositories.Usuarios;
 
 namespace Application.Validacao
 {
-    internal class ValidadorDatabase : IValidadorDatabase
+    public class ValidadorDatabase : IValidadorDatabase
     {
         private readonly IDespesaRepository _despesaRepository;
         private readonly IUsuarioRepository _usuarioRepository;
