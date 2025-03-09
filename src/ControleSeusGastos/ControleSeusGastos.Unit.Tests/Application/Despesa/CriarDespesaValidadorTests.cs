@@ -3,14 +3,14 @@ using Application.Services.Despesas.CriarDespesa.DTO;
 using Application.Validacao;
 using Moq;
 
-namespace ControleSeusGastos.Unit.Tests
+namespace ControleSeusGastos.Unit.Tests.Application.Despesa
 {
-    public class CriarDespesaValidador_Tests
+    public class CriarDespesaValidadorTests
     {
         private readonly Mock<IValidadorDatabase> _ValidadorDatabaseMock;
         private readonly CriarDespesaValidador SUT;
 
-        public CriarDespesaValidador_Tests()
+        public CriarDespesaValidadorTests()
         {
             _ValidadorDatabaseMock = new Mock<IValidadorDatabase>();
             SUT = new CriarDespesaValidador(_ValidadorDatabaseMock.Object);

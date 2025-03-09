@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleSeusGastos.Integration.Tests", "ControleSeusGastos.Integration.Tests\ControleSeusGastos.Integration.Tests.csproj", "{34168DF3-8997-4AF4-B483-FD930D3D30D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControleSeusGastos.Unit.Tests", "ControleSeusGastos.Unit.Tests\ControleSeusGastos.Unit.Tests.csproj", "{F723689C-C808-48FF-BBD6-3B0BFB3933EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{34168DF3-8997-4AF4-B483-FD930D3D30D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34168DF3-8997-4AF4-B483-FD930D3D30D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34168DF3-8997-4AF4-B483-FD930D3D30D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F723689C-C808-48FF-BBD6-3B0BFB3933EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F723689C-C808-48FF-BBD6-3B0BFB3933EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F723689C-C808-48FF-BBD6-3B0BFB3933EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F723689C-C808-48FF-BBD6-3B0BFB3933EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
