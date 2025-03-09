@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace ControleSeusGastos.Integration.Tests
 {
-    public class ExcluirDespesaTests: IClassFixture<WebApplicationFactory<Program>>
+    internal class EditarDespesaTests
     {
         private readonly WebApplicationFactory<Program> _factory;
         private readonly HttpClient _httpClient;
 
-        public ExcluirDespesaTests(WebApplicationFactory<Program> factory)
+        public EditarDespesaTests(WebApplicationFactory<Program> factory)
         {
             _factory = factory;
             _httpClient = _factory.CreateClient();
