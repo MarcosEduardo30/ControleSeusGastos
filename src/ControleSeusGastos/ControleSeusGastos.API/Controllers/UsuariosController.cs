@@ -82,6 +82,8 @@ namespace ControleSeusGastos.API.Controllers
             var usuario = await _editarUsuarioService.editar(id, usuarioAtualizado);
             if (usuario is null)
                 return NotFound();
+            if (usuario.Erros is not null)
+                return BadRequest(usuario);
 
             return Ok(usuario);
         }

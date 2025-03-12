@@ -31,6 +31,7 @@ namespace Application
             services.AddScoped<CriarDespesaValidador>();
             services.AddScoped<EditarDespesaValidador>();
             services.AddScoped<CriarUsuarioValidador>();
+            services.AddScoped<EditarUsuarioValidador>();
 
             services.AddInfrastructureServices();
 
