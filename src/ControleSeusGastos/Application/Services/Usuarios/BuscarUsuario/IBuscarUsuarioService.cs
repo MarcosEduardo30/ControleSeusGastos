@@ -4,6 +4,6 @@ namespace Application.Services.Usuarios.BuscarUsuario
 {
     public interface IBuscarUsuarioService
     {
-        public Task<BuscarUsuarioDTO> buscar(int id);
+        public Task<BuscarUsuarioDTO?> buscar(int id);
     }
 }

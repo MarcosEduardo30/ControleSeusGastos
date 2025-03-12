@@ -42,7 +42,11 @@ namespace ControleSeusGastos.API.Controllers
         [ProducesResponseType(404)]
         public async Task<ActionResult<BuscarUsuarioDTO>> BuscarUsuario(int id)
         {
-            return await _buscarUsuarioService.buscar(id);
+            var usuario = await _buscarUsuarioService.buscar(id);
+            if (usuario is null)
+                return NotFound();
+
+            return usuario;
         }
 
         [HttpPost]

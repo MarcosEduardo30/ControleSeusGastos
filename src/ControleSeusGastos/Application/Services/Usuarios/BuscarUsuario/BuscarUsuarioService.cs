@@ -14,9 +14,15 @@ namespace Application.Services.Usuarios.BuscarUsuario
         public async Task<BuscarUsuarioDTO> buscar(int id)
         {
             var usuario = await _usuarioRepository.BuscarPorId(id);
+
+            if (usuario == null)
+                return null;
+
             BuscarUsuarioDTO resul = new BuscarUsuarioDTO()
             {
-                username = usuario.username
+                username = usuario.username,
+                name = usuario.name,
+                email = usuario.email
             };
 
             return resul;

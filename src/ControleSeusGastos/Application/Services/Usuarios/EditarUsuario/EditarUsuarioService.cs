@@ -22,18 +22,20 @@ namespace Application.Services.Usuarios.EditarUsuario
                 return null;
             }
 
+            usuario.name = NovoUsuario.name;
+            usuario.email = NovoUsuario.email;
             usuario.username = NovoUsuario.username;
-            usuario.password = NovoUsuario.password;
 
             await _usuarioRepository.Atualizar(usuario);
 
             EditarUsuarioOutput resul = new EditarUsuarioOutput()
             {
+                name = usuario.name,
+                email = usuario.email,
                 username = usuario.username
             };
 
             return resul;
-
         }
     }
 }

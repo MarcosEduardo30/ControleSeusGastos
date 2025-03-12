@@ -17,15 +17,17 @@ namespace Application.Services.Usuarios.CriarUsuario
         {
             Usuario novoUsuario = new Usuario()
             {
-                username = dados.username,
-                password = dados.password
+                name = dados.name,
+                email = dados.email,
+                username = dados.username
             };
 
             await _usuarioRepository.Criar(novoUsuario);
 
             CriarUsuarioOutput resul = new CriarUsuarioOutput()
             {
-                username = novoUsuario.username
+                name = novoUsuario.name,
+                email = novoUsuario.email
             };
 
             return resul;
