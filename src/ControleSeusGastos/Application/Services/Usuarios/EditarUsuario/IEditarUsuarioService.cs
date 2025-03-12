@@ -4,6 +4,6 @@ namespace Application.Services.Usuarios.EditarUsuario
 {
     public interface IEditarUsuarioService
     {
-        public Task<EditarUsuarioOutput> editar(EditarUsuarioInput usuario);
+        public Task<EditarUsuarioOutput?> editar(int idUsuario, EditarUsuarioInput usuario);
     }
 }

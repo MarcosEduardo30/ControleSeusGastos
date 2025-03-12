@@ -73,7 +73,11 @@ namespace ControleSeusGastos.API.Controllers
                 return Forbid();
             }
 
-            return await _editarUsuarioService.editar(usuarioAtualizado);
+            var usuario = await _editarUsuarioService.editar(id, usuarioAtualizado);
+            if (usuario is null)
+                return BadRequest();
+
+            return Ok(usuario);
         }
 
         [HttpDelete("{id}")]

@@ -13,9 +13,9 @@ namespace Application.Services.Usuarios.EditarUsuario
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<EditarUsuarioOutput> editar(EditarUsuarioInput NovoUsuario)
+        public async Task<EditarUsuarioOutput?> editar(int idUsuario, EditarUsuarioInput NovoUsuario)
         {
-            Usuario? usuario = await _usuarioRepository.BuscarPorId(NovoUsuario.id);
+            Usuario? usuario = await _usuarioRepository.BuscarPorId(idUsuario);
 
             if (usuario == null)
             {
