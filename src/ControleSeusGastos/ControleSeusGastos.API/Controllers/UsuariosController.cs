@@ -48,7 +48,7 @@ namespace ControleSeusGastos.API.Controllers
             if (usuario is null)
                 return NotFound();
 
-            return usuario;
+            return Ok(usuario);
         }
 
         [HttpPost]
@@ -56,7 +56,8 @@ namespace ControleSeusGastos.API.Controllers
         [ProducesResponseType(400)]
         public async Task<ActionResult<CriarUsuarioOutput>> CriarUsuario(CriarUsuarioInput novoUsuario)
         {
-            return await _criarUsuarioService.Criar(novoUsuario);
+            var usuario = await _criarUsuarioService.Criar(novoUsuario);
+            return Ok(usuario);
         }
 
         [HttpPut("{id}")]
@@ -75,7 +76,7 @@ namespace ControleSeusGastos.API.Controllers
 
             var usuario = await _editarUsuarioService.editar(id, usuarioAtualizado);
             if (usuario is null)
-                return BadRequest();
+                return NotFound();
 
             return Ok(usuario);
         }
@@ -93,8 +94,9 @@ namespace ControleSeusGastos.API.Controllers
             {
                 return Forbid();
             }
+            await _excluirUsuarioService.excluir(id);
 
-            return await _excluirUsuarioService.excluir(id);
+            return NoContent();
         }
 
         [HttpPost("login")]
