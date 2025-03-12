@@ -2,6 +2,7 @@
 using Application.Services.Despesas.CriarDespesa;
 using Application.Services.Despesas.EditarDespesa;
 using Application.Services.Despesas.ExcluirDespesa;
+using Application.Services.Usuarios.Authentication;
 using Application.Services.Usuarios.BuscarUsuario;
 using Application.Services.Usuarios.CriarUsuario;
 using Application.Services.Usuarios.EditarUsuario;
@@ -24,6 +25,7 @@ namespace Application
             services.AddScoped<ICriarUsuarioService, CriarUsuarioService>();
             services.AddScoped<IEditarUsuarioService, EditarUsuarioService>();
             services.AddScoped<IExcluirUsuarioService, ExcluirUsuarioService>();
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             services.AddScoped<IValidadorDatabase, ValidadorDatabase>();
             services.AddScoped<CriarDespesaValidador>();
