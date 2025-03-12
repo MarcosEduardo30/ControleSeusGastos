@@ -42,10 +42,12 @@ namespace Application.Services.Usuarios.Authentication
         {
             var despesa = await _despesaRepository.buscaPorId(DespesaId);
 
+            if (despesa is null)
+                return true;
+
             if (despesa.Usuario_Id != UserRequestId)
-            {
                 return false;
-            }
+
             return true;
 
         }

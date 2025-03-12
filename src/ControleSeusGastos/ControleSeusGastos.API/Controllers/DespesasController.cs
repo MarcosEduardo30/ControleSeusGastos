@@ -15,7 +15,7 @@ namespace ControleSeusGastos.API.Controllers
 {
     [ApiController]
     [Route("[Controller]")]
-    public class Despesas : Controller
+    public class DespesasController : Controller
     {
         private readonly ICriarDespesaService _criarDespesa;
         private readonly IBuscarDespesaService _buscarDespesa;
@@ -23,7 +23,7 @@ namespace ControleSeusGastos.API.Controllers
         private readonly IExcluirDespesaService _excluirDespesa;
         private IAuthenticationService _authenticationService;
 
-        public Despesas(ICriarDespesaService criarDespesa,
+        public DespesasController(ICriarDespesaService criarDespesa,
             IBuscarDespesaService buscarDespesa,
             IEditarDespesaService editarDespesa,
             IExcluirDespesaService excluirDespesa,
@@ -38,10 +38,19 @@ namespace ControleSeusGastos.API.Controllers
 
 
         [HttpPost()]
+        [Authorize]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         public async Task<ActionResult<ResultadoAPI<CriarDespesaOutput>>> CriarDespesa(CriarDespesaInput input)
         {
+            string? userRequestId = User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+            if(input.Usuario_Id.ToString() != userRequestId)
+            {
+                return Forbid();
+            }
+
             var novadespesa = await _criarDespesa.CriarNovaDespesa(input);
             if (novadespesa.Erros is not null)
             {
@@ -54,25 +63,25 @@ namespace ControleSeusGastos.API.Controllers
 
 
         [HttpGet("{id}")]
+        [Authorize]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
         [ProducesResponseType(404)]
-        [Authorize]
         public async Task<ActionResult<ResultadoAPI<BuscarDespesaOutput>>> BuscarDespesa(int id)
         {
+            string? userRequestId = User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+
+            if (!await _authenticationService.VerificaAutorizacaoDespesa(Int32.Parse(userRequestId), id))
+            {
+                return Forbid();
+            }
+
             var despesa = await _buscarDespesa.BuscarPorId(id);
 
             if (despesa == null)
             {
                 return NotFound();
-            }
-
-            string? userRequestId = User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-
-            if (! await _authenticationService.VerificaAutorizacaoDespesa(Int32.Parse(userRequestId), id))
-            {
-                return Forbid();
             }
 
             var resultado = new ResultadoAPI<BuscarDespesaOutput>(StatusResult.Success, despesa);
@@ -81,12 +90,20 @@ namespace ControleSeusGastos.API.Controllers
         }
 
         [HttpGet("BuscarPorUsuario/{idUsuario}")]
+        [Authorize]
         [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         [ProducesResponseType(404)]
         public async Task<ActionResult<ResultadoAPI<List<BuscarDespesaOutput>>>> BuscarPorIdUsuario(int idUsuario)
         {
-            var despesas = await _buscarDespesa.BuscarPorIdUsuario(idUsuario);
+            string? userRequestId = User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+            if (idUsuario.ToString() != userRequestId)
+            {
+                return Forbid();
+            }
 
+            var despesas = await _buscarDespesa.BuscarPorIdUsuario(idUsuario);
             if (despesas == null)
             {
                 return NotFound();
@@ -97,10 +114,19 @@ namespace ControleSeusGastos.API.Controllers
         }
 
         [HttpGet("BuscarPorPeriodo/{idUsuario}")]
+        [Authorize]
         [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         [ProducesResponseType(404)]
         public async Task<ActionResult<ResultadoAPI<List<BuscarDespesaOutput>>>> BuscarPorPeriodo(int idUsuario, DateTime DataInicio, DateTime DataFim)
         {
+            string? userRequestId = User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+            if (idUsuario.ToString() != userRequestId)
+            {
+                return Forbid();
+            }
+
             var despesas = await _buscarDespesa.BuscarPorPeriodo(idUsuario, DataInicio, DataFim);
 
             if (despesas == null)
@@ -113,10 +139,20 @@ namespace ControleSeusGastos.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         [ProducesResponseType(400)]
         public async Task<ActionResult<ResultadoAPI<EditarDespesaOutput>>> EditarDespesa(int id, EditarDespesaInput novaDespesa)
         {
+            string? userRequestId = User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+
+            if (!await _authenticationService.VerificaAutorizacaoDespesa(Int32.Parse(userRequestId), id))
+            {
+                return Forbid();
+            }
+
             var despesa = await _editarDespesa.Editar(id, novaDespesa);
 
             if (despesa.Erros is not null)
@@ -130,10 +166,20 @@ namespace ControleSeusGastos.API.Controllers
 
 
         [HttpDelete()]
+        [Authorize]
         [ProducesResponseType(204)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         [ProducesResponseType(404)]
         public async Task<ActionResult<ResultadoAPI<bool>>> ExcluirDespesa(int id)
         {
+            string? userRequestId = User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+
+            if (!await _authenticationService.VerificaAutorizacaoDespesa(Int32.Parse(userRequestId), id))
+            {
+                return Forbid();
+            }
+
             var sucess = await _excluirDespesa.Excluir(id);
 
             if (!sucess)
