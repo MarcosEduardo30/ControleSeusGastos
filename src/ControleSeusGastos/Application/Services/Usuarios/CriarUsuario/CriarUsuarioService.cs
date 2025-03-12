@@ -13,9 +13,9 @@ namespace Application.Services.Usuarios.CriarUsuario
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<CriarUsuarioOutput> Criar(CriarUsuarioInput dados)
+        public async Task<Resultado<CriarUsuarioOutput>> Criar(CriarUsuarioInput dados)
         {
-            Usuario novoUsuario = new Usuario()
+            Usuario novoUsuario = new()
             {
                 name = dados.name,
                 email = dados.email,
@@ -24,11 +24,13 @@ namespace Application.Services.Usuarios.CriarUsuario
 
             await _usuarioRepository.Criar(novoUsuario);
 
-            CriarUsuarioOutput resul = new CriarUsuarioOutput()
+            CriarUsuarioOutput output = new()
             {
                 name = novoUsuario.name,
                 email = novoUsuario.email
             };
+
+            Resultado<CriarUsuarioOutput> resul = new(null, output);
 
             return resul;
 

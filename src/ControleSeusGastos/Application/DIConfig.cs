@@ -30,6 +30,7 @@ namespace Application
             services.AddScoped<IValidadorDatabase, ValidadorDatabase>();
             services.AddScoped<CriarDespesaValidador>();
             services.AddScoped<EditarDespesaValidador>();
+            services.AddScoped<CriarUsuarioValidador>();
 
             services.AddInfrastructureServices();
 

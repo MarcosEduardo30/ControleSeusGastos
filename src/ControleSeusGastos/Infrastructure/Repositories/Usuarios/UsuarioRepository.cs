@@ -17,6 +17,11 @@ namespace Infrastructure.Repositories.Usuarios
             return await _appDbContext.SaveChangesAsync();
         }
 
+        public async Task<Usuario?> BuscarPorEmail(string email)
+        {
+            return await _appDbContext.Usuarios.FirstOrDefaultAsync(u => u.email == email);
+        }
+
         public async Task<Usuario?> BuscarPorId(int id)
         {
             return await _appDbContext.Usuarios.FirstOrDefaultAsync(u => u.Id == id);
