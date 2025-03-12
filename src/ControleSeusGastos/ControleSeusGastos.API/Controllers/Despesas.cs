@@ -5,8 +5,11 @@ using Application.Services.Despesas.CriarDespesa.DTO;
 using Application.Services.Despesas.EditarDespesa;
 using Application.Services.Despesas.EditarDespesa.DTO;
 using Application.Services.Despesas.ExcluirDespesa;
+using Application.Services.Usuarios.Authentication;
 using ControleSeusGastos.API.Resultados;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ControleSeusGastos.API.Controllers
 {
@@ -18,16 +21,19 @@ namespace ControleSeusGastos.API.Controllers
         private readonly IBuscarDespesaService _buscarDespesa;
         private readonly IEditarDespesaService _editarDespesa;
         private readonly IExcluirDespesaService _excluirDespesa;
+        private IAuthenticationService _authenticationService;
 
         public Despesas(ICriarDespesaService criarDespesa,
             IBuscarDespesaService buscarDespesa,
             IEditarDespesaService editarDespesa,
-            IExcluirDespesaService excluirDespesa)
+            IExcluirDespesaService excluirDespesa,
+            IAuthenticationService authenticationService)
         {
             _criarDespesa = criarDespesa;
             _buscarDespesa = buscarDespesa;
             _editarDespesa = editarDespesa;
             _excluirDespesa = excluirDespesa;
+            _authenticationService = authenticationService;
         }
 
 
@@ -49,13 +55,24 @@ namespace ControleSeusGastos.API.Controllers
 
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         [ProducesResponseType(404)]
+        [Authorize]
         public async Task<ActionResult<ResultadoAPI<BuscarDespesaOutput>>> BuscarDespesa(int id)
         {
             var despesa = await _buscarDespesa.BuscarPorId(id);
 
-            if (despesa == null) {
+            if (despesa == null)
+            {
                 return NotFound();
+            }
+
+            string? userRequestId = User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+
+            if (! await _authenticationService.VerificaAutorizacaoDespesa(Int32.Parse(userRequestId), id))
+            {
+                return Forbid();
             }
 
             var resultado = new ResultadoAPI<BuscarDespesaOutput>(StatusResult.Success, despesa);

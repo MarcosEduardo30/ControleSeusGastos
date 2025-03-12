@@ -1,4 +1,5 @@
 ﻿
+using Application.Services.Usuarios.Authentication;
 using Application.Services.Usuarios.BuscarUsuario;
 using Application.Services.Usuarios.BuscarUsuario.DTO;
 using Application.Services.Usuarios.CriarUsuario;
@@ -6,6 +7,7 @@ using Application.Services.Usuarios.CriarUsuario.DTO;
 using Application.Services.Usuarios.EditarUsuario;
 using Application.Services.Usuarios.EditarUsuario.DTO;
 using Application.Services.Usuarios.ExcluirUsuario;
+using Application.Services.Usuarios.Login.DTO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ControleSeusGastos.API.Controllers
@@ -18,17 +20,20 @@ namespace ControleSeusGastos.API.Controllers
         private readonly IBuscarUsuarioService _buscarUsuarioService;
         private readonly IEditarUsuarioService _editarUsuarioService;
         private readonly IExcluirUsuarioService _excluirUsuarioService;
+        private readonly IAuthenticationService _authenticationService;
 
         public UsuariosController(
             ICriarUsuarioService criarUsuarioService,
             IBuscarUsuarioService buscarUsuarioService,
             IEditarUsuarioService editarUsuarioService,
-            IExcluirUsuarioService excluirUsuarioService)
+            IExcluirUsuarioService excluirUsuarioService,
+            IAuthenticationService authenticationService)
         {
             _criarUsuarioService = criarUsuarioService;
             _buscarUsuarioService = buscarUsuarioService;
             _editarUsuarioService = editarUsuarioService;
             _excluirUsuarioService = excluirUsuarioService;
+            _authenticationService = authenticationService;
         }
 
 
@@ -62,6 +67,18 @@ namespace ControleSeusGastos.API.Controllers
         public async Task<ActionResult<bool>> ExcluirUsuario(int id)
         {
             return await _excluirUsuarioService.excluir(id);
+        }
+
+        [HttpPost("login")]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult<string>> Login(LoginInput input)
+        {
+            var token = await _authenticationService.Login(input);
+            if (token is null)
+            {
+                return BadRequest();
+            }
+            return Ok(token);
         }
     }
 }

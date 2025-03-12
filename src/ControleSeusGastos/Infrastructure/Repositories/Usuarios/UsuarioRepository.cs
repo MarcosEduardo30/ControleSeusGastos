@@ -22,6 +22,11 @@ namespace Infrastructure.Repositories.Usuarios
             return await _appDbContext.Usuarios.FirstOrDefaultAsync(u => u.Id == id);
         }
 
+        public async Task<Usuario?> BuscarPorUsername(string username)
+        {
+            return await _appDbContext.Usuarios.FirstOrDefaultAsync(u => u.username == username);
+        }
+
         public async Task<int> Criar(Usuario usuario)
         {
             await _appDbContext.Usuarios.AddAsync(usuario);

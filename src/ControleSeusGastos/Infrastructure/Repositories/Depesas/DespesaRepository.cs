@@ -13,7 +13,16 @@ namespace Infrastructure.Repositories.Depesas
         public async Task<int> criar(Despesa despesa)
         {
             _dbContext.Despesas.Add(despesa);
-            return await _dbContext.SaveChangesAsync();
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return 1;
         }
 
         public async Task<Despesa?> buscaPorId(int id)
