@@ -34,7 +34,7 @@ namespace Application.Services.Despesas.CriarDespesa
 
             var novaDespesa = new Despesa()
             {
-                Nome = input.Nome,
+                Nome = input.Nome.Trim(),
                 Valor = input.Valor,
                 Descricao = input.Descricao,
                 Data = input.Data,

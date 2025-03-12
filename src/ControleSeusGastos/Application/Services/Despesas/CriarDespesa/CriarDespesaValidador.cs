@@ -15,19 +15,19 @@ namespace Application.Services.Despesas.CriarDespesa
         {
             List<Erro> erros = new List<Erro>();
 
-            if (input.Valor < 0)
+            if (input.Valor <= 0)
             {
                 erros.Add(new Erro("Valor_Invalido", "Valor da despesa deve ser maior do que zero"));
                 return erros;
             }
 
-            if (input.Nome == "" || input.Nome is null)
+            if (input.Nome is null || input.Nome.Trim() == "")
             {
                 erros.Add(new Erro("Nome_Vazio", "Campo nome não pode ser vazio"));
                 return erros;
             }
 
-            if (input.Nome.Length < 3)
+            if (input.Nome.Trim().Length < 3)
             {
                 erros.Add(new Erro("Nome_Curto", "Nome da despesa deve ser maior que 3 caracteres"));
                 return erros;

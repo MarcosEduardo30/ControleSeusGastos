@@ -24,7 +24,7 @@ namespace Application.Services.Despesas.EditarDespesa
             }
 
             var despesaAntiga = await _despesaRepository.buscaPorId(id);
-            despesaAntiga.Nome = NovaDespesa.Nome;
+            despesaAntiga.Nome = NovaDespesa.Nome.Trim();
             despesaAntiga.Valor = NovaDespesa.Valor;
             despesaAntiga.Descricao = NovaDespesa.Descricao;
             despesaAntiga.Categoria_Id = NovaDespesa.Categoria_id;

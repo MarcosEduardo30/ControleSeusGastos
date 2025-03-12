@@ -28,13 +28,13 @@ namespace Application.Services.Despesas.EditarDespesa
                 return erros;
             }
 
-            if (input.Nome == "" || input.Nome is null)
+            if (input.Nome is null || input.Nome.Trim() == "")
             {
                 erros.Add(new Erro("Nome_Vazio", "Campo nome não pode ser vazio"));
                 return erros;
             }
 
-            if (input.Nome.Length < 3)
+            if (input.Nome.Trim().Length < 3)
             {
                 erros.Add(new Erro("Nome_Curto", "Nome da despesa deve ser maior que 3 caracteres"));
                 return erros;
