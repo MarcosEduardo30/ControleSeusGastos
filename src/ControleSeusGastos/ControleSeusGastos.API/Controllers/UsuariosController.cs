@@ -8,7 +8,9 @@ using Application.Services.Usuarios.EditarUsuario;
 using Application.Services.Usuarios.EditarUsuario.DTO;
 using Application.Services.Usuarios.ExcluirUsuario;
 using Application.Services.Usuarios.Login.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ControleSeusGastos.API.Controllers
 {
@@ -37,7 +39,7 @@ namespace ControleSeusGastos.API.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public async Task<ActionResult<BuscarUsuarioDTO>> BuscarUsuario(int id)
@@ -57,19 +59,37 @@ namespace ControleSeusGastos.API.Controllers
             return await _criarUsuarioService.Criar(novoUsuario);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
+        [Authorize]
         [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         [ProducesResponseType(404)]
-        public async Task<ActionResult<EditarUsuarioOutput>> EditarUsuario(EditarUsuarioInput usuarioAtualizado)
+        public async Task<ActionResult<EditarUsuarioOutput>> EditarUsuario(int id, EditarUsuarioInput usuarioAtualizado)
         {
+            string? userRequestId = User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+            if (id.ToString() != userRequestId)
+            {
+                return Forbid();
+            }
+
             return await _editarUsuarioService.editar(usuarioAtualizado);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
+        [Authorize]
         [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(403)]
         [ProducesResponseType(404)]
         public async Task<ActionResult<bool>> ExcluirUsuario(int id)
         {
+            string? userRequestId = User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+            if (id.ToString() != userRequestId)
+            {
+                return Forbid();
+            }
+
             return await _excluirUsuarioService.excluir(id);
         }
 
