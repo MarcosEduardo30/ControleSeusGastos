@@ -33,7 +33,7 @@ namespace Application.Services.Usuarios.CriarUsuario
                 return erros;
             }
 
-            var usuarioEmail = _usuarioRepository.BuscarPorEmail(input.email);
+            var usuarioEmail = await _usuarioRepository.BuscarPorEmail(input.email);
 
             if (usuarioEmail is not null)
             {

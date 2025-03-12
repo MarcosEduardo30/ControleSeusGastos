@@ -57,6 +57,11 @@ namespace ControleSeusGastos.API.Controllers
         public async Task<ActionResult<CriarUsuarioOutput>> CriarUsuario(CriarUsuarioInput novoUsuario)
         {
             var usuario = await _criarUsuarioService.Criar(novoUsuario);
+            if (usuario.Erros is not null)
+            {
+                return BadRequest(usuario);
+            }
+
             return Ok(usuario);
         }
 
