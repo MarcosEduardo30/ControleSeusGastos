@@ -27,6 +27,13 @@ namespace Application.Services.Usuarios.CriarUsuario
                 return erros;
             }
 
+            var usuarioUsername = await _usuarioRepository.BuscarPorUsername(input.username);
+            if(usuarioUsername is not null)
+            {
+                erros.Add(new Erro("Usuario_Ja_Cadastrado", "O nome de usuario já está em uso"));
+                return erros;
+            }
+
             if (input.name is null || input.name == "")
             {
                 erros.Add(new Erro("Nome_Nulo", "O campo nome não pode ser vazio"));
@@ -38,6 +45,7 @@ namespace Application.Services.Usuarios.CriarUsuario
             if (usuarioEmail is not null)
             {
                 erros.Add(new Erro("Email_Ja_Cadastrado", "O email já está cadastrado"));
+                return erros;
             }
 
             if (input.password is null || input.password == "")
