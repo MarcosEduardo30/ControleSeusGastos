@@ -165,7 +165,7 @@ namespace ControleSeusGastos.API.Controllers
         }
 
 
-        [HttpDelete()]
+        [HttpDelete("{id}")]
         [Authorize]
         [ProducesResponseType(204)]
         [ProducesResponseType(401)]

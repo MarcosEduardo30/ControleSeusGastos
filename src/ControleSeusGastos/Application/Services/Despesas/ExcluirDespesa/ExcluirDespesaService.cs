@@ -22,7 +22,7 @@ namespace Application.Services.Despesas.ExcluirDespesa
             }
 
             var afetadas = await _despesaRepository.removerPorId(despesaId);
-            if (afetadas > 1)
+            if (afetadas > 0)
             {
                 return true;
             }

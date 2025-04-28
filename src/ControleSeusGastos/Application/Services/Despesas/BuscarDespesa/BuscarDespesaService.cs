@@ -1,4 +1,5 @@
 ﻿using Application.Despesas.BuscarDespesa.DTO;
+using Domain.Despesas;
 using Infrastructure.Repositories.Depesas;
 
 namespace Application.Services.Despesas.BuscarDespesa
@@ -22,13 +23,18 @@ namespace Application.Services.Despesas.BuscarDespesa
 
             var despesaDTO = new BuscarDespesaOutput
             {
+                Id = despesa.Id,
                 Data = despesa.Data,
                 Valor = despesa.Valor,
                 Descricao = despesa.Descricao,
-                Categoria_Nome = despesa.Categoria.nome,
                 Usuario_Nome = despesa.Usuario.username,
                 Nome = despesa.Nome
             };
+
+            if (despesa.Categoria != null)
+            {
+                despesaDTO.Categoria_Nome = despesa.Categoria.nome;
+            }            
 
             return despesaDTO;
         }
@@ -48,6 +54,7 @@ namespace Application.Services.Despesas.BuscarDespesa
             {
                 var output = new BuscarDespesaOutput
                 {
+                    Id = desp.Id,
                     Data = desp.Data,
                     Valor = desp.Valor,
                     Descricao = desp.Descricao,
@@ -66,6 +73,11 @@ namespace Application.Services.Despesas.BuscarDespesa
 
         public async Task<List<BuscarDespesaOutput>?> BuscarPorPeriodo(int idUsuario, DateTime DataInicio, DateTime DataFim)
         {
+            if(DataInicio > DataFim)
+            {
+                return null;
+            }
+
             var despesas = await _despesaRepository.buscarPorPeriodo(idUsuario, DataInicio, DataFim);
 
             if (despesas == null || despesas.Count <= 0)
@@ -79,6 +91,7 @@ namespace Application.Services.Despesas.BuscarDespesa
             {
                 var output = new BuscarDespesaOutput
                 {
+                    Id = desp.Id,
                     Data = desp.Data,
                     Valor = desp.Valor,
                     Descricao = desp.Descricao,
