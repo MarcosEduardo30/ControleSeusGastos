@@ -33,7 +33,7 @@ namespace Application.Services.Usuarios.Authentication
             if (input.password != usuario.password)
                 return null;
 
-            var token = CreateToken(usuario);
+            var token = CreateToken(usuario.name, usuario.Id);
 
             return token;
         }
@@ -52,12 +52,12 @@ namespace Application.Services.Usuarios.Authentication
 
         }
 
-        private string CreateToken(Usuario usuario)
+        public string CreateToken(string nomeUsuario, int idUsuario)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, usuario.username),
-                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString())
+                new Claim(ClaimTypes.Name, nomeUsuario),
+                new Claim(ClaimTypes.NameIdentifier, idUsuario.ToString())
             };
 
 

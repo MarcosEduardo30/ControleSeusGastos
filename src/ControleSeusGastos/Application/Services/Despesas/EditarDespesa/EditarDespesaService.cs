@@ -35,6 +35,7 @@ namespace Application.Services.Despesas.EditarDespesa
             var output = new EditarDespesaOutput
             {
                 Nome = despesaAntiga.Nome,
+                Valor = despesaAntiga.Valor,
                 Descricao = despesaAntiga.Descricao,
                 Data = despesaAntiga.Data,
             };

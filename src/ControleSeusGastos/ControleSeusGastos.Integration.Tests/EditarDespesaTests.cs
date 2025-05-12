@@ -1,9 +1,14 @@
 ﻿using Application.Services.Despesas.CriarDespesa.DTO;
 using Application.Services.Despesas.EditarDespesa.DTO;
+using Application.Services.Usuarios.Authentication;
+using Application.Services.Usuarios.Login.DTO;
 using Application.Validacao;
 using ControleSeusGastos.API;
 using ControleSeusGastos.API.Resultados;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
 namespace ControleSeusGastos.Integration.Tests
@@ -35,6 +40,13 @@ namespace ControleSeusGastos.Integration.Tests
 
             int id = 10;
 
+            var scope = _factory.Services.CreateScope();
+            var service = scope.ServiceProvider.GetService<IAuthenticationService>();
+            var token = await service.Login(new LoginInput() { username = "string 2", password = "string" });
+
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme,
+                token);
+
             //act
             var response = await _httpClient.PutAsJsonAsync($"/Despesas/{id}", input);
             var result = await response.Content.ReadFromJsonAsync<ResultadoAPI<EditarDespesaOutput>>();
@@ -44,8 +56,8 @@ namespace ControleSeusGastos.Integration.Tests
             Assert.Null(result.erros);
             Assert.NotNull(result.data);
             Assert.Equal(100, result.data.Valor);
-            Assert.Equal("Teste", result.data.Nome);
-            Assert.Equal("Descrição teste", result.data.Descricao);
+            Assert.Equal("Teste Atualizado", result.data.Nome);
+            Assert.Equal("Descrição Atualizada", result.data.Descricao);
         }
 
         [Fact]
@@ -63,8 +75,15 @@ namespace ControleSeusGastos.Integration.Tests
 
             int id = 0;
 
+            var scope = _factory.Services.CreateScope();
+            var service = scope.ServiceProvider.GetService<IAuthenticationService>();
+            var token = await service.Login(new LoginInput() { username = "string 2", password = "string" });
+
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme,
+                token);
+
             //act
-            var response = await _httpClient.PostAsJsonAsync("/Despesas", input);
+            var response = await _httpClient.PutAsJsonAsync($"/Despesas/{id}", input);
             var result = await response.Content.ReadFromJsonAsync<ResultadoAPI<EditarDespesaOutput>>();
 
             //assert
@@ -74,7 +93,7 @@ namespace ControleSeusGastos.Integration.Tests
             Assert.NotEmpty(result.erros);
             Assert.Single(result.erros);
             Assert.IsType<List<Erro>>(result.erros);
-            Assert.Equal("Despesa_Invalida", result.erros[0].nome);
+            Assert.Equal("despesa_invalida", result.erros[0].nome);
         }
 
 
