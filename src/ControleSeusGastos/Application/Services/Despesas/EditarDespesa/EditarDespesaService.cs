@@ -28,7 +28,7 @@ namespace Application.Services.Despesas.EditarDespesa
             despesaAntiga.Valor = NovaDespesa.Valor;
             despesaAntiga.Descricao = NovaDespesa.Descricao;
             despesaAntiga.Categoria_Id = NovaDespesa.Categoria_id;
-            despesaAntiga.Data = NovaDespesa.Data;
+            despesaAntiga.Data = NovaDespesa.Data.ToUniversalTime();
 
             await _despesaRepository.atualizar(despesaAntiga);
 

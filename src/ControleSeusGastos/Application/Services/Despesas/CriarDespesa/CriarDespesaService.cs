@@ -37,7 +37,7 @@ namespace Application.Services.Despesas.CriarDespesa
                 Nome = input.Nome.Trim(),
                 Valor = input.Valor,
                 Descricao = input.Descricao,
-                Data = input.Data,
+                Data = input.Data.ToUniversalTime(),
                 Categoria_Id = input.Categoria_Id,
                 Usuario_Id = input.Usuario_Id
             };
