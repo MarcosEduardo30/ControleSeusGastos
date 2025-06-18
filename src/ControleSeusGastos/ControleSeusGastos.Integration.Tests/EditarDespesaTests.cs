@@ -45,7 +45,7 @@ namespace ControleSeusGastos.Integration.Tests
             var token = await service.Login(new LoginInput() { username = "string 2", password = "string" });
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme,
-                token);
+                token.token);
 
             //act
             var response = await _httpClient.PutAsJsonAsync($"/Despesas/{id}", input);
@@ -80,7 +80,7 @@ namespace ControleSeusGastos.Integration.Tests
             var token = await service.Login(new LoginInput() { username = "string 2", password = "string" });
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme,
-                token);
+                token.token);
 
             //act
             var response = await _httpClient.PutAsJsonAsync($"/Despesas/{id}", input);
@@ -95,7 +95,5 @@ namespace ControleSeusGastos.Integration.Tests
             Assert.IsType<List<Erro>>(result.erros);
             Assert.Equal("despesa_invalida", result.erros[0].nome);
         }
-
-
     }
 }

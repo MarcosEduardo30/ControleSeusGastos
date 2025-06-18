@@ -1,5 +1,6 @@
 ﻿
 using Application.Services.Usuarios.Authentication;
+using Application.Services.Usuarios.Authentication.DTO;
 using Application.Services.Usuarios.BuscarUsuario;
 using Application.Services.Usuarios.BuscarUsuario.DTO;
 using Application.Services.Usuarios.CriarUsuario;
@@ -108,7 +109,7 @@ namespace ControleSeusGastos.API.Controllers
 
         [HttpPost("login")]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<string>> Login(LoginInput input)
+        public async Task<ActionResult<loginOutput?>> Login(LoginInput input)
         {
             var token = await _authenticationService.Login(input);
             if (token is null)

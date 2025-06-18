@@ -1,6 +1,9 @@
-﻿using Application.Services.Usuarios.Login.DTO;
+﻿using Application.Services.Usuarios.Authentication.DTO;
+using Application.Services.Usuarios.Login.DTO;
+using Domain.RefreshToken;
 using Domain.Usuarios;
 using Infrastructure.Repositories.Depesas;
+using Infrastructure.Repositories.RefreshTokens;
 using Infrastructure.Repositories.Usuarios;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -14,16 +17,22 @@ namespace Application.Services.Usuarios.Authentication
     {
         private readonly IUsuarioRepository _usuariosRepository;
         private readonly IDespesaRepository _despesaRepository;
+        private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly IConfiguration _configuration;
 
-        public AuthenticationService(IUsuarioRepository usuarioRepository, IDespesaRepository despesaRepository, IConfiguration configuration)
+        public AuthenticationService(
+            IUsuarioRepository usuarioRepository,
+            IDespesaRepository despesaRepository,
+            IRefreshTokenRepository refreshTokenRepository,
+            IConfiguration configuration)
         {
             _usuariosRepository = usuarioRepository;
             _despesaRepository = despesaRepository;
+            _refreshTokenRepository = refreshTokenRepository;
             _configuration = configuration;
         }
 
-        public async Task<string> Login(LoginInput input)
+        public async Task<loginOutput?> Login(LoginInput input)
         {
             var usuario = await _usuariosRepository.BuscarPorUsername(input.username);
             
@@ -33,9 +42,19 @@ namespace Application.Services.Usuarios.Authentication
             if (input.password != usuario.password)
                 return null;
 
-            var token = CreateToken(usuario.name, usuario.Id);
+            var authToken = CreateToken(usuario.name, usuario.Id);
 
-            return token;
+            RefreshToken refreshToken = new RefreshToken()
+            {
+                Id = Guid.NewGuid(),
+                Token = Guid.NewGuid(),
+                IdUsuario = usuario.Id,
+                DataExpiracao = DateTime.UtcNow.AddDays(30)
+            };
+
+            await _refreshTokenRepository.Criar(refreshToken);
+            
+            return new loginOutput() { token = authToken, RefreshToken = Guid.NewGuid(), UsuarioId = usuario.Id};
         }
 
         public async Task<bool> VerificaAutorizacaoDespesa(int UserRequestId, int DespesaId)
@@ -52,32 +71,32 @@ namespace Application.Services.Usuarios.Authentication
 
         }
 
-        public string CreateToken(string nomeUsuario, int idUsuario)
+        private string CreateToken(string nomeUsuario, int idUsuario)
         {
-            var claims = new List<Claim>
+            var claims = new ClaimsIdentity(new []
             {
                 new Claim(ClaimTypes.Name, nomeUsuario),
                 new Claim(ClaimTypes.NameIdentifier, idUsuario.ToString())
-            };
-
+            })
+;
+            var JwtIssuer = _configuration["JwtIssuer"];
+            var JwtAudience = _configuration["JwtAudience"];
 
             string simKey = _configuration["SymmetricKey"];
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(simKey));
-
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
 
+            var tokenDescriptor = new SecurityTokenDescriptor
+            { 
+                Subject = claims,
+                Issuer = JwtIssuer,
+                Audience = JwtAudience,
+                Expires = DateTime.UtcNow.AddMinutes(5),
+                SigningCredentials = creds
+            };
 
-            var JwtIssuer = _configuration["JwtIssuer"];
-            var JwtAudience = _configuration["JwtAudience"];
-            var tokenDescriptor = new JwtSecurityToken(
-                issuer: JwtIssuer,
-                audience: JwtAudience,
-                claims: claims,
-                expires: DateTime.UtcNow.AddHours(1),
-                signingCredentials: creds
-            );
-
-            return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+            var securityToken = new JwtSecurityTokenHandler().CreateToken(tokenDescriptor);
+            return new JwtSecurityTokenHandler().WriteToken(securityToken);
         }
     }
 }

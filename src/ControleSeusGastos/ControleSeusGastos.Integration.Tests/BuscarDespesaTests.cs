@@ -33,7 +33,7 @@ namespace ControleSeusGastos.Integration.Tests
             var token = await service.Login(new LoginInput() { username = "string 2", password = "string" });
 
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme,
-                token);
+                token.token);
 
             //Act
             var response = await _client.GetAsync($"/Despesas/{id}");

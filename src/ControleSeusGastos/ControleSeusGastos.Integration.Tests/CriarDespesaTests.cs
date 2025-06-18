@@ -56,7 +56,7 @@ namespace ControleSeusGastos.Integration.Tests
             var token = await service.Login(new LoginInput() { username= "string 2", password= "string" });
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme,
-                token);
+                token.token);
 
             //act
             var response = await _httpClient.PostAsJsonAsync("/Despesas", input);
