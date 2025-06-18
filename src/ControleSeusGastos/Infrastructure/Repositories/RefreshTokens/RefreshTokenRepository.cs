@@ -14,6 +14,26 @@ namespace Infrastructure.Repositories.RefreshTokens
             _dbContext = dbContext;
         }
 
+        public async Task<int> AtualizarToken(RefreshToken refreshToken)
+        {
+            _dbContext.RefreshTokens.Update(refreshToken);
+            return await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<RefreshToken?> BuscarPorId(Guid tokenId)
+        {
+            return await _dbContext.RefreshTokens
+                .Include(rt => rt.Usuario)
+                .FirstOrDefaultAsync(rt => rt.Id == tokenId);
+        }
+
+        public async Task<RefreshToken?> BuscarPorToken(Guid Token)
+        {
+            return await _dbContext.RefreshTokens
+                .Include(rt => rt.Usuario)
+                .FirstOrDefaultAsync(rt => rt.Token == Token);
+        }
+
         public async Task<int> Criar(RefreshToken refreshToken)
         {
             _dbContext.RefreshTokens.Add(refreshToken);

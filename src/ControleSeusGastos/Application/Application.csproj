@@ -11,7 +11,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<InternalsVisibleTo Include="ControleSeusGastos.Unit.Tests"/>
+		<InternalsVisibleTo Include="ControleSeusGastos.Unit.Tests" />
 	</ItemGroup>
 	
   <ItemGroup>

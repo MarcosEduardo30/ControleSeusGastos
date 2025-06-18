@@ -34,6 +34,10 @@ namespace Infrastructure.Db
                 .HasKey(rt => rt.Id);
 
             modelBuilder.Entity<RefreshToken>()
+                .HasIndex(rt => rt.Token)
+                .IsUnique();
+
+            modelBuilder.Entity<RefreshToken>()
                 .HasOne(rt => rt.Usuario)
                 .WithMany()
                 .HasForeignKey(rt => rt.IdUsuario);
