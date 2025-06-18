@@ -3,6 +3,7 @@ using Domain.Categorias;
 using Domain.Despesas;
 using Microsoft.Extensions.Configuration;
 using Domain.Usuarios;
+using Domain.RefreshToken;
 
 namespace Infrastructure.Db
 {
@@ -28,10 +29,19 @@ namespace Infrastructure.Db
                 .WithMany()
                 .HasForeignKey(e => e.Usuario_Id)
                 .IsRequired();
+
+            modelBuilder.Entity<RefreshToken>()
+                .HasKey(rt => rt.Id);
+
+            modelBuilder.Entity<RefreshToken>()
+                .HasOne(rt => rt.Usuario)
+                .WithMany()
+                .HasForeignKey(rt => rt.IdUsuario);
         }
 
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Despesa> Despesas { get; set; }
         public DbSet<Usuario> Usuarios {  get; set; }
+        public DbSet<RefreshToken> RefreshTokens {  get; set; }
     }
 }
