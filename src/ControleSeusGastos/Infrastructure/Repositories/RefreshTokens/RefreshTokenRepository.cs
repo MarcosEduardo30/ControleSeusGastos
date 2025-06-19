@@ -29,6 +29,8 @@ namespace Infrastructure.Repositories.RefreshTokens
 
         public async Task<RefreshToken?> BuscarPorToken(Guid Token)
         {
+            var teste = _dbContext.RefreshTokens.ToList();
+
             return await _dbContext.RefreshTokens
                 .Include(rt => rt.Usuario)
                 .FirstOrDefaultAsync(rt => rt.Token == Token);

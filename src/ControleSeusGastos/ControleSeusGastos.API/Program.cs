@@ -35,6 +35,18 @@ namespace ControleSeusGastos.API
             }
             );
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    policy =>
+                    {
+                        policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    }
+                );
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -46,8 +58,11 @@ namespace ControleSeusGastos.API
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseCors();
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+            
 
             app.MapControllers();
 

@@ -45,7 +45,7 @@ namespace Application.Services.Usuarios.Authentication
             RefreshToken refreshToken = await _authenticationUtils.CreateRefreshToken(usuario.Id);
 
 
-            return new loginOutput() { token = authToken, RefreshToken = Guid.NewGuid(), UsuarioId = usuario.Id};
+            return new loginOutput() { token = authToken, RefreshToken = refreshToken.Token, UsuarioId = usuario.Id};
         }
 
         public async Task<bool> VerificaAutorizacaoDespesa(int UserRequestId, int DespesaId)

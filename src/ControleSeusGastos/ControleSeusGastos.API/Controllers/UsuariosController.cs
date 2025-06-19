@@ -1,6 +1,7 @@
 ﻿
 using Application.Services.Usuarios.Authentication;
 using Application.Services.Usuarios.Authentication.DTO;
+using Application.Services.Usuarios.Authentication.LoginRefreshToken;
 using Application.Services.Usuarios.BuscarUsuario;
 using Application.Services.Usuarios.BuscarUsuario.DTO;
 using Application.Services.Usuarios.CriarUsuario;
@@ -24,19 +25,22 @@ namespace ControleSeusGastos.API.Controllers
         private readonly IEditarUsuarioService _editarUsuarioService;
         private readonly IExcluirUsuarioService _excluirUsuarioService;
         private readonly IAuthenticationService _authenticationService;
+        private readonly ILoginRefreshTokenService _loginRefreshTokenService;
 
         public UsuariosController(
             ICriarUsuarioService criarUsuarioService,
             IBuscarUsuarioService buscarUsuarioService,
             IEditarUsuarioService editarUsuarioService,
             IExcluirUsuarioService excluirUsuarioService,
-            IAuthenticationService authenticationService)
+            IAuthenticationService authenticationService,
+            ILoginRefreshTokenService loginRefreshTokenService)
         {
             _criarUsuarioService = criarUsuarioService;
             _buscarUsuarioService = buscarUsuarioService;
             _editarUsuarioService = editarUsuarioService;
             _excluirUsuarioService = excluirUsuarioService;
             _authenticationService = authenticationService;
+            _loginRefreshTokenService = loginRefreshTokenService;
         }
 
 
@@ -117,6 +121,19 @@ namespace ControleSeusGastos.API.Controllers
                 return BadRequest();
             }
             return Ok(token);
+        }
+
+        [HttpPost("LoginRefreshToken")]
+        [ProducesResponseType(200)]
+        public async Task<ActionResult<loginOutput?>> LoginRefreshToken([FromBody] Guid RefreshToken)
+        {
+            var response = await _loginRefreshTokenService.Login(RefreshToken);
+
+            if (response is null)
+            {
+                return BadRequest();
+            }
+            return Ok(response);
         }
     }
 }

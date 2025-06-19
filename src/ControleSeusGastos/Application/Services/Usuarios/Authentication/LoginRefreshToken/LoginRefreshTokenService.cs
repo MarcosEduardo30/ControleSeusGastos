@@ -3,12 +3,12 @@ using Infrastructure.Repositories.RefreshTokens;
 
 namespace Application.Services.Usuarios.Authentication.LoginRefreshToken
 {
-    internal class LoginRefreshToken : ILoginRefreshTokenService
+    internal class LoginRefreshTokenService : ILoginRefreshTokenService
     {
         private readonly IRefreshTokenRepository _refreshTokenRepository;
         private readonly AuthenticationUtils _authenticationUtils;
 
-        public LoginRefreshToken(IRefreshTokenRepository refreshTokenRepository, AuthenticationUtils authenticationUtils)
+        public LoginRefreshTokenService(IRefreshTokenRepository refreshTokenRepository, AuthenticationUtils authenticationUtils)
         {
             _refreshTokenRepository = refreshTokenRepository;
             _authenticationUtils = authenticationUtils;

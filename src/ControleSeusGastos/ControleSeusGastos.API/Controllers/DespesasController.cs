@@ -46,7 +46,7 @@ namespace ControleSeusGastos.API.Controllers
         public async Task<ActionResult<ResultadoAPI<CriarDespesaOutput>>> CriarDespesa(CriarDespesaInput input)
         {
             string? userRequestId = User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
-            if(input.Usuario_Id.ToString() != userRequestId)
+            if (input.Usuario_Id.ToString() != userRequestId)
             {
                 return Forbid();
             }
@@ -166,7 +166,7 @@ namespace ControleSeusGastos.API.Controllers
 
 
         [HttpDelete("{id}")]
-        [Authorize]
+        //[Authorize]
         [ProducesResponseType(204)]
         [ProducesResponseType(401)]
         [ProducesResponseType(403)]
