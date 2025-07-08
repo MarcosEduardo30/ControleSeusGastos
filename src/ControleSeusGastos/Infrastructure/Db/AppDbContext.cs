@@ -13,8 +13,7 @@ namespace Infrastructure.Db
         {
             base.OnConfiguring(optionsBuilder);
 
-            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            optionsBuilder.UseNpgsql(configuration["postgresCon"]);
+            optionsBuilder.UseNpgsql(Environment.GetEnvironmentVariable("Database"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
