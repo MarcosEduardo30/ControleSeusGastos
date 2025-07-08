@@ -123,9 +123,9 @@ namespace ControleSeusGastos.API.Controllers
             return Ok(token);
         }
 
-        [HttpPost("LoginRefreshToken")]
+        [HttpPost("LoginRefreshToken/{RefreshToken}")]
         [ProducesResponseType(200)]
-        public async Task<ActionResult<loginOutput?>> LoginRefreshToken([FromBody] Guid RefreshToken)
+        public async Task<ActionResult<loginOutput?>> LoginRefreshToken(Guid RefreshToken)
         {
             var response = await _loginRefreshTokenService.Login(RefreshToken);
 

@@ -40,13 +40,13 @@ namespace Application.Services.Usuarios.CriarUsuario
                 return erros;
             }
 
-            var usuarioEmail = await _usuarioRepository.BuscarPorEmail(input.email);
+            //var usuarioEmail = await _usuarioRepository.BuscarPorEmail(input.email);
 
-            if (usuarioEmail is not null)
-            {
-                erros.Add(new Erro("Email_Ja_Cadastrado", "O email já está cadastrado"));
-                return erros;
-            }
+            //if (usuarioEmail is not null)
+            //{
+            //    erros.Add(new Erro("Email_Ja_Cadastrado", "O email já está cadastrado"));
+            //    return erros;
+            //}
 
             if (input.password is null || input.password == "")
             {
