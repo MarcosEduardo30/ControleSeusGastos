@@ -1,5 +1,7 @@
 using Application;
+using Infrastructure.Db;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -30,7 +32,8 @@ namespace ControleSeusGastos.API
                     ValidAudience = builder.Configuration["JwtAudience"],
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["SymmetricKey"]!)),
-                    ValidateLifetime = true
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
                 };
             }
             );
@@ -40,7 +43,7 @@ namespace ControleSeusGastos.API
                 options.AddDefaultPolicy(
                     policy =>
                     {
-                        policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+                        policy.WithOrigins("*")
                             .AllowAnyMethod()
                             .AllowAnyHeader();
                     }
@@ -55,6 +58,10 @@ namespace ControleSeusGastos.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
 
