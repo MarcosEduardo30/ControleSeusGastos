@@ -10,6 +10,7 @@ using Application.Services.Usuarios.EditarUsuario;
 using Application.Services.Usuarios.EditarUsuario.DTO;
 using Application.Services.Usuarios.ExcluirUsuario;
 using Application.Services.Usuarios.Login.DTO;
+using ControleSeusGastos.API.Resultados;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -59,15 +60,15 @@ namespace ControleSeusGastos.API.Controllers
         [HttpPost]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        public async Task<ActionResult<CriarUsuarioOutput>> CriarUsuario(CriarUsuarioInput novoUsuario)
+        public async Task<ActionResult<ResultadoAPI<CriarUsuarioOutput>>> CriarUsuario(CriarUsuarioInput novoUsuario)
         {
             var usuario = await _criarUsuarioService.Criar(novoUsuario);
             if (usuario.Erros is not null)
             {
-                return BadRequest(usuario);
+                return BadRequest(new ResultadoAPI<CriarUsuarioOutput>(StatusResult.Error, null, usuario.Erros));
             }
 
-            return Ok(usuario);
+            return Ok(new ResultadoAPI<CriarUsuarioOutput>(StatusResult.Success, usuario.Valor));
         }
 
         [HttpPut("{id}")]
@@ -85,12 +86,16 @@ namespace ControleSeusGastos.API.Controllers
             }
 
             var usuario = await _editarUsuarioService.editar(id, usuarioAtualizado);
+
             if (usuario is null)
                 return NotFound();
-            if (usuario.Erros is not null)
-                return BadRequest(usuario);
 
-            return Ok(usuario);
+            if (usuario.Erros is not null)
+            {
+                return BadRequest(new ResultadoAPI<EditarUsuarioOutput>(StatusResult.Error, null, usuario.Erros));
+            }
+
+            return Ok(new ResultadoAPI<EditarUsuarioOutput>(StatusResult.Success, usuario.Valor));
         }
 
         [HttpDelete("{id}")]
@@ -116,6 +121,7 @@ namespace ControleSeusGastos.API.Controllers
         public async Task<ActionResult<loginOutput?>> Login(LoginInput input)
         {
             var token = await _authenticationService.Login(input);
+
             if (token is null)
             {
                 return BadRequest();
@@ -133,6 +139,7 @@ namespace ControleSeusGastos.API.Controllers
             {
                 return BadRequest();
             }
+
             return Ok(response);
         }
     }
