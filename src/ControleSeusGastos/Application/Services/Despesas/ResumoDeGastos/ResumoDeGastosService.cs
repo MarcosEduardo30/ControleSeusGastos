@@ -1,5 +1,6 @@
 ﻿using Application.Services.Despesas.ResumoDeGastos.DTO;
 using Application.Validacao;
+using Domain.Despesas;
 using Infrastructure.Repositories.Depesas;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -23,20 +24,49 @@ namespace Application.Services.Despesas.ResumoDeGastos
                 return new Resultado<ResumoDeGastosOutput>([erro], null);
             }
 
+            
+            var despesasDoAno = despesas.FindAll(d => d.Data.Year == DateTime.Today.Year);
+
             double gastoAnual = 0;
-            despesas.FindAll(d => d.Data.Year == DateTime.Today.Year)
-                    .ForEach(d => gastoAnual += d.Valor);
+            despesasDoAno.ForEach(d => gastoAnual += d.Valor);
 
             double gastoMensal = 0;
-            despesas.FindAll(d => d.Data.Year == DateTime.Today.Year && d.Data.Month == DateTime.Today.Month)
+            despesasDoAno.FindAll(d => d.Data.Month == DateTime.Today.Month)
                     .ForEach(d => gastoMensal += d.Valor);
+
+            var gastosPorMês = GerarGastosPorMes(despesasDoAno);
 
             var output = new ResumoDeGastosOutput() { 
                 TotalGastoAno = gastoAnual,
-                TotalGastoMes = gastoMensal
+                TotalGastoMes = gastoMensal,
+                GastosPorMes = gastosPorMês
             };
 
             return new Resultado<ResumoDeGastosOutput>(null, output);
         }
-    }
+        private List<GastoPorMes> GerarGastosPorMes(List<Despesa> despesasDoAno)
+        {
+            List<GastoPorMes> gastos = [
+            new GastoPorMes {Mes = "Jan", Valor = 0},
+            new GastoPorMes {Mes = "Fev", Valor = 0},
+            new GastoPorMes {Mes = "Mar", Valor = 0},
+            new GastoPorMes {Mes = "Abr", Valor = 0},
+            new GastoPorMes {Mes = "Mai", Valor = 0},
+            new GastoPorMes {Mes = "Jun", Valor = 0},
+            new GastoPorMes {Mes = "Jul", Valor = 0},
+            new GastoPorMes {Mes = "Ago", Valor = 0},
+            new GastoPorMes {Mes = "Set", Valor = 0},
+            new GastoPorMes {Mes = "Out", Valor = 0},
+            new GastoPorMes {Mes = "Nov", Valor = 0},
+            new GastoPorMes {Mes = "Dez", Valor = 0}
+            ];
+
+            foreach (var desp in despesasDoAno)
+            {
+                gastos[desp.Data.Month - 1].Valor += desp.Valor;
+            }
+
+            return gastos;
+        }
+    };    
 }
