@@ -2,6 +2,7 @@
 using Application.Services.Despesas.CriarDespesa;
 using Application.Services.Despesas.EditarDespesa;
 using Application.Services.Despesas.ExcluirDespesa;
+using Application.Services.Despesas.ResumoDeGastos;
 using Application.Services.Usuarios.Authentication;
 using Application.Services.Usuarios.Authentication.LoginRefreshToken;
 using Application.Services.Usuarios.BuscarUsuario;
@@ -22,6 +23,7 @@ namespace Application
             services.AddScoped<IBuscarDespesaService, BuscarDespesaService>();
             services.AddScoped<IEditarDespesaService, EditarDespesaService>();
             services.AddScoped<IExcluirDespesaService, ExcluirDespesaService>();
+            services.AddScoped<IResumoDeGastosService, ResumoDeGastosService>();
             services.AddScoped<IBuscarUsuarioService, BuscarUsuarioService>();
             services.AddScoped<ICriarUsuarioService, CriarUsuarioService>();
             services.AddScoped<IEditarUsuarioService, EditarUsuarioService>();

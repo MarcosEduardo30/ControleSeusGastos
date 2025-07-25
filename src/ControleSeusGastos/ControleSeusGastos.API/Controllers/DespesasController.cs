@@ -5,6 +5,8 @@ using Application.Services.Despesas.CriarDespesa.DTO;
 using Application.Services.Despesas.EditarDespesa;
 using Application.Services.Despesas.EditarDespesa.DTO;
 using Application.Services.Despesas.ExcluirDespesa;
+using Application.Services.Despesas.ResumoDeGastos;
+using Application.Services.Despesas.ResumoDeGastos.DTO;
 using Application.Services.Usuarios.Authentication;
 using ControleSeusGastos.API.Resultados;
 using Microsoft.AspNetCore.Authorization;
@@ -21,19 +23,22 @@ namespace ControleSeusGastos.API.Controllers
         private readonly IBuscarDespesaService _buscarDespesa;
         private readonly IEditarDespesaService _editarDespesa;
         private readonly IExcluirDespesaService _excluirDespesa;
+        private readonly IResumoDeGastosService _resumoDeGastos;
         private IAuthenticationService _authenticationService;
 
         public DespesasController(ICriarDespesaService criarDespesa,
             IBuscarDespesaService buscarDespesa,
             IEditarDespesaService editarDespesa,
             IExcluirDespesaService excluirDespesa,
-            IAuthenticationService authenticationService)
+            IAuthenticationService authenticationService,
+            IResumoDeGastosService resumoDeGastos)
         {
             _criarDespesa = criarDespesa;
             _buscarDespesa = buscarDespesa;
             _editarDespesa = editarDespesa;
             _excluirDespesa = excluirDespesa;
             _authenticationService = authenticationService;
+            _resumoDeGastos = resumoDeGastos;
         }
 
 
@@ -189,6 +194,26 @@ namespace ControleSeusGastos.API.Controllers
 
             var resultado = new ResultadoAPI<bool>(StatusResult.Success, sucess);
             return NoContent();
+        }
+
+        [HttpGet("ResumoDeGastos/{IdUsuario}")]
+        public async Task<ActionResult<ResultadoAPI<ResumoDeGastosOutput>>> ResumoDeGastos(int IdUsuario)
+        {
+            string? userRequestId = User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier");
+
+            if (!await _authenticationService.VerificaAutorizacaoDespesa(Int32.Parse(userRequestId), IdUsuario))
+            {
+                return Forbid();
+            }
+
+            var result = await _resumoDeGastos.BuscarResumo(IdUsuario);
+
+            if (result.Erros != null)
+            {
+                return new ResultadoAPI<ResumoDeGastosOutput>(StatusResult.Error, null, result.Erros);
+            }
+
+            return new ResultadoAPI<ResumoDeGastosOutput>(StatusResult.Success, result.Valor);
         }
     }
 }
