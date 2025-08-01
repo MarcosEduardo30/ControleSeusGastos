@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Enums;
 
 namespace Application.Services.Despesas.EditarDespesa.DTO
 {
@@ -11,7 +7,7 @@ namespace Application.Services.Despesas.EditarDespesa.DTO
         public int Valor {  get; set; }
         public string Nome { get; set; }
         public string? Descricao { get; set; }
-        public int? Categoria_id { get; set; }
+        public CategoriaEnum Categoria { get; set; }
         public DateTime Data { get; set; }
     }
 }

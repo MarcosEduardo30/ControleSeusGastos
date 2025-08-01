@@ -39,7 +39,7 @@ namespace Application.Services.Usuarios.Authentication
                 Subject = claims,
                 Issuer = JwtIssuer,
                 Audience = JwtAudience,
-                Expires = DateTime.UtcNow.AddMinutes(5),
+                Expires = DateTime.UtcNow.AddMinutes(15),
                 SigningCredentials = creds
             };
 

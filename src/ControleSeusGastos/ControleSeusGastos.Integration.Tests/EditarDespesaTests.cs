@@ -34,7 +34,6 @@ namespace ControleSeusGastos.Integration.Tests
                 Valor = 100,
                 Nome = "Teste Atualizado",
                 Descricao = "Descrição Atualizada",
-                Categoria_id = 1,
                 Data = new DateTime(2025, 01, 01).ToUniversalTime()
             };
 
@@ -69,7 +68,6 @@ namespace ControleSeusGastos.Integration.Tests
                 Valor = 100,
                 Nome = "Teste Atualizado",
                 Descricao = "Descrição Atualizada",
-                Categoria_id = 1,
                 Data = new DateTime(2025, 01, 01).ToUniversalTime()
             };
 

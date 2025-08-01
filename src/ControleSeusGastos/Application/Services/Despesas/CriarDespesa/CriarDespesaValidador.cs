@@ -33,15 +33,6 @@ namespace Application.Services.Despesas.CriarDespesa
                 return erros;
             }
 
-            if(input.Categoria_Id is not null)
-            {
-                if (await _validadorDB.ExisteCategoriaDB((int)input.Categoria_Id) == false)
-                {
-                    erros.Add(new Erro("Categoria_Invalida", "A Categoria da despesa não existe"));
-                    return erros;
-                }
-            }
-
             if (await _validadorDB.ExisteUsuarioDB(input.Usuario_Id) == false)
             {
                 erros.Add(new Erro("Usuario_Invalido", "Usuário da despesa não está cadastrado"));

@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Domain.Categorias;
 using Domain.Despesas;
-using Microsoft.Extensions.Configuration;
 using Domain.Usuarios;
 using Domain.RefreshToken;
 
@@ -18,11 +16,6 @@ namespace Infrastructure.Db
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Despesa>()
-                .HasOne(e => e.Categoria)
-                .WithMany()
-                .HasForeignKey(e => e.Categoria_Id);
-
             modelBuilder.Entity<Despesa>()
                 .HasOne(e => e.Usuario)
                 .WithMany()
@@ -41,8 +34,6 @@ namespace Infrastructure.Db
                 .WithMany()
                 .HasForeignKey(rt => rt.IdUsuario);
         }
-
-        public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Despesa> Despesas { get; set; }
         public DbSet<Usuario> Usuarios {  get; set; }
         public DbSet<RefreshToken> RefreshTokens {  get; set; }

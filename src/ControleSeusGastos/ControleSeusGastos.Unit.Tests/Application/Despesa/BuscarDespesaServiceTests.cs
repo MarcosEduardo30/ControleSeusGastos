@@ -45,7 +45,6 @@ namespace ControleSeusGastos.Unit.Tests.Application.Despesa
             int input = 1;
 
             var mockDespesa = Mock.Of<Domain.Despesas.Despesa>();
-            mockDespesa.Categoria = null;
             mockDespesa.Usuario = Mock.Of<Usuario>();
 
             _mockDespesaRepository

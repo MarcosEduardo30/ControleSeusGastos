@@ -46,7 +46,6 @@ namespace ControleSeusGastos.Integration.Tests
                 Valor = 100,
                 Nome = "Teste",
                 Descricao = "Descrição teste",
-                Categoria_Id = 1,
                 Usuario_Id = 1,
                 Data = new DateTime(2025, 01, 01).ToUniversalTime()
             };

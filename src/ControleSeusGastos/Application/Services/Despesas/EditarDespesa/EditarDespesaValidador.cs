@@ -40,15 +40,6 @@ namespace Application.Services.Despesas.EditarDespesa
                 return erros;
             }
 
-            if (input.Categoria_id is not null)
-            {
-                if (await _validadorDatabase.ExisteCategoriaDB((int)input.Categoria_id) == false)
-                {
-                    erros.Add(new Erro("Categoria_Invalida", "A Categoria da despesa não existe"));
-                    return erros;
-                }
-            }
-
             return erros;
         }
     }

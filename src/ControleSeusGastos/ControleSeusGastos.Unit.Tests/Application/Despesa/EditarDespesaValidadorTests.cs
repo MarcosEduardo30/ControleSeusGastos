@@ -22,7 +22,6 @@ namespace ControleSeusGastos.Unit.Tests.Application.Despesa
         public async void DeveriaRetornarTrue_QueDadosValidos_AoValidarEditarDespesa()
         {
             //Arrange
-            _validadorDatabaseMock.Setup(service => service.ExisteCategoriaDB(1)).Returns(Task.FromResult(true));
             _validadorDatabaseMock.Setup(service => service.ExisteDespesaDB(1)).Returns(Task.FromResult(true));
 
             var input = new EditarDespesaInput
@@ -30,7 +29,6 @@ namespace ControleSeusGastos.Unit.Tests.Application.Despesa
                 Valor = 100,
                 Nome = "Teste",
                 Descricao = "Descrição teste",
-                Categoria_id = 1,
                 Data = new DateTime(2025, 01, 01)
             };
 
@@ -41,21 +39,18 @@ namespace ControleSeusGastos.Unit.Tests.Application.Despesa
             Assert.Empty(result);
             Assert.IsType<List<Erro>>(result);
             _validadorDatabaseMock.Verify(service => service.ExisteDespesaDB(1), Times.Once);
-            _validadorDatabaseMock.Verify(service => service.ExisteCategoriaDB(1), Times.Once);
         }
 
         [Fact]
         public async void DeveriaRetornarTrue_QueDadosValidosEDescricaoNula_AoValidarEditarDespesa()
         {
             //Arrange
-            _validadorDatabaseMock.Setup(service => service.ExisteCategoriaDB(1)).Returns(Task.FromResult(true));
             _validadorDatabaseMock.Setup(service => service.ExisteDespesaDB(1)).Returns(Task.FromResult(true));
 
             var input = new EditarDespesaInput
             {
                 Valor = 100,
                 Nome = "Teste",
-                Categoria_id = 1,
                 Data = new DateTime(2025, 01, 01)
             };
 
@@ -66,14 +61,12 @@ namespace ControleSeusGastos.Unit.Tests.Application.Despesa
             Assert.Empty(result);
             Assert.IsType<List<Erro>>(result);
             _validadorDatabaseMock.Verify(service => service.ExisteDespesaDB(1), Times.Once);
-            _validadorDatabaseMock.Verify(service => service.ExisteCategoriaDB(1), Times.Once);
         }
 
         [Fact]
         public async void DeveriaRetornarTrue_QueDadosValidosECategoriaNula_AoValidarEditarDespesa()
         {
             //Arrange
-            _validadorDatabaseMock.Setup(service => service.ExisteCategoriaDB(1)).Returns(Task.FromResult(true));
             _validadorDatabaseMock.Setup(service => service.ExisteDespesaDB(1)).Returns(Task.FromResult(true));
 
             var input = new EditarDespesaInput
@@ -91,7 +84,6 @@ namespace ControleSeusGastos.Unit.Tests.Application.Despesa
             Assert.Empty(result);
             Assert.IsType<List<Erro>>(result);
             _validadorDatabaseMock.Verify(service => service.ExisteDespesaDB(1), Times.Once);
-            _validadorDatabaseMock.Verify(service => service.ExisteCategoriaDB(1), Times.Never);
         }
 
         [Theory]
@@ -101,14 +93,12 @@ namespace ControleSeusGastos.Unit.Tests.Application.Despesa
         {
             //Arrange
             _validadorDatabaseMock.Setup(service => service.ExisteDespesaDB(1)).Returns(Task.FromResult(true));
-            _validadorDatabaseMock.Setup(service => service.ExisteCategoriaDB(1)).Returns(Task.FromResult(true));
 
             var input = new EditarDespesaInput
             {
                 Valor = valor,
                 Nome = "Teste",
                 Descricao = "Descrição teste",
-                Categoria_id = 1,
                 Data = new DateTime(2025, 01, 01)
             };
 
@@ -130,14 +120,12 @@ namespace ControleSeusGastos.Unit.Tests.Application.Despesa
         {
             //Arrange
             _validadorDatabaseMock.Setup(service => service.ExisteDespesaDB(1)).Returns(Task.FromResult(true));
-            _validadorDatabaseMock.Setup(service => service.ExisteCategoriaDB(1)).Returns(Task.FromResult(true));
 
             var input = new EditarDespesaInput
             {
                 Valor = 100,
                 Nome = valor,
                 Descricao = "Descrição teste",
-                Categoria_id = 1,
                 Data = new DateTime(2025, 01, 01)
             };
 
@@ -159,14 +147,12 @@ namespace ControleSeusGastos.Unit.Tests.Application.Despesa
         {
             //Arrange
             _validadorDatabaseMock.Setup(service => service.ExisteDespesaDB(1)).Returns(Task.FromResult(true));
-            _validadorDatabaseMock.Setup(service => service.ExisteCategoriaDB(1)).Returns(Task.FromResult(true));
 
             var input = new EditarDespesaInput
             {
                 Valor = 100,
                 Nome = valor,
                 Descricao = "Descrição teste",
-                Categoria_id = 1,
                 Data = new DateTime(2025, 01, 01)
             };
 
@@ -185,14 +171,12 @@ namespace ControleSeusGastos.Unit.Tests.Application.Despesa
         {
             //Arrange
             _validadorDatabaseMock.Setup(service => service.ExisteDespesaDB(1)).Returns(Task.FromResult(true));
-            _validadorDatabaseMock.Setup(service => service.ExisteCategoriaDB(1)).Returns(Task.FromResult(false));
 
             var input = new EditarDespesaInput
             {
                 Valor = 100,
                 Nome = "Nome",
                 Descricao = "Descrição teste",
-                Categoria_id = 1,
                 Data = new DateTime(2025, 01, 01)
             };
 
@@ -211,14 +195,12 @@ namespace ControleSeusGastos.Unit.Tests.Application.Despesa
         {
             //Arrange
             _validadorDatabaseMock.Setup(service => service.ExisteDespesaDB(1)).Returns(Task.FromResult(false));
-            _validadorDatabaseMock.Setup(service => service.ExisteCategoriaDB(1)).Returns(Task.FromResult(true));
 
             var input = new EditarDespesaInput
             {
                 Valor = 100,
                 Nome = "Nome",
                 Descricao = "Descrição teste",
-                Categoria_id = 1,
                 Data = new DateTime(2025, 01, 01)
             };
 

@@ -1,5 +1,4 @@
-﻿using Application.Services.Despesas.CriarDespesa.DTO;
-using Application.Services.Despesas.EditarDespesa.DTO;
+﻿using Application.Services.Despesas.EditarDespesa.DTO;
 using Infrastructure.Repositories.Depesas;
 
 namespace Application.Services.Despesas.EditarDespesa
@@ -27,7 +26,7 @@ namespace Application.Services.Despesas.EditarDespesa
             despesaAntiga.Nome = NovaDespesa.Nome.Trim();
             despesaAntiga.Valor = NovaDespesa.Valor;
             despesaAntiga.Descricao = NovaDespesa.Descricao;
-            despesaAntiga.Categoria_Id = NovaDespesa.Categoria_id;
+            despesaAntiga.Categoria = NovaDespesa.Categoria;
             despesaAntiga.Data = NovaDespesa.Data.ToUniversalTime();
 
             await _despesaRepository.atualizar(despesaAntiga);

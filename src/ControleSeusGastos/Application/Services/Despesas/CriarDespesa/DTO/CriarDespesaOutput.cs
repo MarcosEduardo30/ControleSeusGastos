@@ -1,4 +1,6 @@
-﻿namespace Application.Services.Despesas.CriarDespesa.DTO
+﻿using Domain.Enums;
+
+namespace Application.Services.Despesas.CriarDespesa.DTO
 {
     public record CriarDespesaOutput
     {
@@ -6,6 +8,6 @@
         public double Valor { get; set; }
         public string Descricao { get; set; }
         public DateTime Data { get; set; }
-        public string Categoria_Nome { get; set; }
+        public string Categoria { get; set; }
     }
 }

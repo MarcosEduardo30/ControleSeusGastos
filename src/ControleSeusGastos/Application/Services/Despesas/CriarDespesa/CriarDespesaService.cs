@@ -1,7 +1,5 @@
 ﻿using Application.Services.Despesas.CriarDespesa.DTO;
-using Domain.Categorias;
 using Domain.Despesas;
-using Infrastructure.Repositories.Categorias;
 using Infrastructure.Repositories.Depesas;
 
 namespace Application.Services.Despesas.CriarDespesa
@@ -9,16 +7,13 @@ namespace Application.Services.Despesas.CriarDespesa
     internal class CriarDespesaService : ICriarDespesaService
     {
         private readonly IDespesaRepository _despesaRepository;
-        private readonly ICategoriaRepository _categoriaRepository;
         private readonly CriarDespesaValidador _validador;
         
         public CriarDespesaService(IDespesaRepository despesaRepository,
-            CriarDespesaValidador validador,
-            ICategoriaRepository categoriaRepository)
+            CriarDespesaValidador validador)
         {
             _despesaRepository = despesaRepository;
             _validador = validador;
-            _categoriaRepository = categoriaRepository;
         }
 
         public async Task<Resultado<CriarDespesaOutput>> CriarNovaDespesa(CriarDespesaInput input)
@@ -37,28 +32,19 @@ namespace Application.Services.Despesas.CriarDespesa
                 Nome = input.Nome.Trim(),
                 Valor = input.Valor,
                 Descricao = input.Descricao,
+                Categoria = input.Categoria,
                 Data = input.Data.ToUniversalTime(),
-                Categoria_Id = input.Categoria_Id,
                 Usuario_Id = input.Usuario_Id
             };
 
-            await _despesaRepository.criar(novaDespesa);
-
-
-            string categoriaNome = "";
-            if (novaDespesa.Categoria_Id is not null)
-            {
-                var categoria = await _categoriaRepository.buscarPorId((int)novaDespesa.Categoria_Id);
-                categoriaNome = categoria.nome;
-            }
-
+            await _despesaRepository.criar(novaDespesa);;
 
             var despesaOutput = new CriarDespesaOutput()
             {
                 Nome = novaDespesa.Nome,
                 Valor = novaDespesa.Valor,
                 Descricao = novaDespesa.Descricao,
-                Categoria_Nome = categoriaNome,
+                Categoria = Enum.GetName(novaDespesa.Categoria),
                 Data = novaDespesa.Data
             };
 

@@ -1,5 +1,4 @@
 ﻿using Infrastructure.Db;
-using Infrastructure.Repositories.Categorias;
 using Infrastructure.Repositories.Depesas;
 using Infrastructure.Repositories.RefreshTokens;
 using Infrastructure.Repositories.Usuarios;
@@ -14,7 +13,6 @@ namespace Infrastructure
             services.AddDbContext<AppDbContext>();
             services.AddScoped<IDespesaRepository, DespesaRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
             services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
             return services;

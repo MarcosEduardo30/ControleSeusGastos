@@ -28,13 +28,9 @@ namespace Application.Services.Despesas.BuscarDespesa
                 Valor = despesa.Valor,
                 Descricao = despesa.Descricao,
                 Usuario_Nome = despesa.Usuario.username,
+                Categoria = Enum.GetName(despesa.Categoria),
                 Nome = despesa.Nome
-            };
-
-            if (despesa.Categoria != null)
-            {
-                despesaDTO.Categoria_Nome = despesa.Categoria.nome;
-            }            
+            };    
 
             return despesaDTO;
         }
@@ -59,10 +55,9 @@ namespace Application.Services.Despesas.BuscarDespesa
                     Valor = desp.Valor,
                     Descricao = desp.Descricao,
                     Usuario_Nome = desp.Usuario.username,
+                    Categoria = Enum.GetName(desp.Categoria),
                     Nome = desp.Nome
                 };
-
-                output.Categoria_Nome = desp.Categoria != null ? desp.Categoria.nome : null;
 
                 resul.Add(output);
             }
@@ -95,11 +90,10 @@ namespace Application.Services.Despesas.BuscarDespesa
                     Data = desp.Data,
                     Valor = desp.Valor,
                     Descricao = desp.Descricao,
+                    Categoria = Enum.GetName(desp.Categoria),
                     Usuario_Nome = desp.Usuario.username,
                     Nome = desp.Nome
                 };
-
-                output.Categoria_Nome = desp.Categoria != null ? desp.Categoria.nome : null;
 
                 resul.Add(output);
             }
