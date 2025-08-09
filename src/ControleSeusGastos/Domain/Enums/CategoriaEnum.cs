@@ -4,17 +4,11 @@ namespace Domain.Enums
 {
     public enum CategoriaEnum
     {
-        [Description("Nenhuma")]
-        Nenhuma,
-        [Description("Alimentacao")]
+        Nenhuma,        
         Alimentacao,
-        [Description("Lazer")]
         Lazer,
-        [Description("Roupas")]
         Roupas,
-        [Description("Saude")]
         Saude,
-        [Description("Outra")]
         Outra
     }
 }

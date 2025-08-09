@@ -1,7 +1,9 @@
 ﻿using Application.Services.Despesas.ResumoDeGastos.DTO;
 using Application.Validacao;
 using Domain.Despesas;
+using Domain.Enums;
 using Infrastructure.Repositories.Depesas;
+using System.Diagnostics.Metrics;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Application.Services.Despesas.ResumoDeGastos
@@ -36,10 +38,13 @@ namespace Application.Services.Despesas.ResumoDeGastos
 
             var gastosPorMês = GerarGastosPorMes(despesasDoAno);
 
+            var gastosPorCategoria = GerarGastosPorCategoria(despesasDoAno);
+
             var output = new ResumoDeGastosOutput() { 
                 TotalGastoAno = gastoAnual,
                 TotalGastoMes = gastoMensal,
-                GastosPorMes = gastosPorMês
+                GastosPorMes = gastosPorMês,
+                GastosPorCategoria = gastosPorCategoria
             };
 
             return new Resultado<ResumoDeGastosOutput>(null, output);
@@ -64,6 +69,25 @@ namespace Application.Services.Despesas.ResumoDeGastos
             foreach (var desp in despesasDoAno)
             {
                 gastos[desp.Data.Month - 1].Valor += desp.Valor;
+            }
+
+            return gastos;
+        }
+
+        private List<GastoPorCategoria> GerarGastosPorCategoria(List<Despesa> despesasDoAno)
+        {
+            List<GastoPorCategoria> gastos = [
+                new GastoPorCategoria {Categoria = CategoriaEnum.Nenhuma, Valor = 0},
+                new GastoPorCategoria {Categoria = CategoriaEnum.Alimentacao, Valor = 0},
+                new GastoPorCategoria {Categoria = CategoriaEnum.Lazer, Valor = 0},
+                new GastoPorCategoria {Categoria = CategoriaEnum.Roupas, Valor = 0},
+                new GastoPorCategoria {Categoria = CategoriaEnum.Saude, Valor = 0},
+                new GastoPorCategoria {Categoria = CategoriaEnum.Outra, Valor = 0},
+            ];
+
+            foreach (var desp in despesasDoAno)
+            {
+                gastos[((int)desp.Categoria)].Valor += desp.Valor;
             }
 
             return gastos;
